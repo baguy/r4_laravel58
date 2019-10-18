@@ -21,7 +21,7 @@ class DashboardController extends BaseController {
 
   public function panel() {
 
-    return View::make('dashboard.panel')->with('data', $this->data);
+    return view('dashboard.panel')->with('data', $this->data);
   }
 
   public function charts($resource) {

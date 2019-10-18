@@ -10,7 +10,8 @@ class AuthController extends BaseController {
 
     // $cookie = Cookie::forever('laravel_access_id', Hash::make(Str::random(10)));
 
-    return Response::view('auth.login'); // ->withCookie($cookie);
+    return response()
+            ->view('auth.login'); // ->withCookie($cookie);
   }
 
   public function postLogin() {
@@ -59,7 +60,7 @@ class AuthController extends BaseController {
 
             $minutes = round(((($time % 604800) % 86400) % 3600) / 60);
 
-            $message = Lang::get('auth.msg.error.user-suspended', ['minutes' => $minutes]);
+            $message = trans('auth.msg.error.user-suspended', ['minutes' => $minutes]);
           }
         }
 
@@ -82,7 +83,7 @@ class AuthController extends BaseController {
 
   public function getRemind() {
 
-    return View::make('auth.remind');
+    return view('auth.remind');
   }
 
   public function postRemind() {
@@ -119,7 +120,7 @@ class AuthController extends BaseController {
 
       return App::abort(404);
 
-    return View::make('auth.reset')->with('token', $token);
+    return view('auth.reset')->with('token', $token);
   }
 
   public function postReset() {
@@ -177,7 +178,7 @@ class AuthController extends BaseController {
 
   public function newUser() {
 
-    return View::make('auth.new-user');
+    return view('auth.new-user');
 
   }
 

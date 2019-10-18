@@ -34,12 +34,13 @@
 
             @if(is_null($user->avatar))
               <img class="profile-user-img img-fluid img-circle"
-                   src="{{ asset('assets/_dist/img/avatar_128x128.png') }}"
+                   src="/assets/_dist/img/avatar_128x128.png"
                    alt="{{ $user->name }}">
             @else
+              @define $link = '/assets/_dist/img/avatar/'.$user->avatar
               <img class="profile-user-img img-fluid img-circle"
                    style="height:128px; width:128px;"
-                   src="{{ asset('assets/_dist/img/avatar/'.$user->avatar) }}"
+                   src=<?php echo $link ?>
                    alt="{{ $user->name }}">
             @endif
 
@@ -133,14 +134,6 @@
             data-tooltip="tooltip" data-placement="top" title="{{ trans('users.page.title.change-password') }}">
             <i class="fas fa-lock fa-fw"></i>
           </a>
-
-          {{-- <a
-            href="{{ route('users.print-one', [ $user->id ]) }}"
-            class="btn btn-light text-dark"
-            target="_blank"
-            data-tooltip="tooltip" data-placement="top" title="{{ trans('application.btn.print') }}">
-            <i class="fas fa-print fa-fw"></i>
-          </a> --}}
 
         </div>
 

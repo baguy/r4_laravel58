@@ -85,19 +85,6 @@
 
   <div class="card-footer">
 
-    {{-- <span class="float-right">
-      {{
-        route(
-          'main.create',
-          trans('application.btn.add-new'),
-          null,
-          array(
-            'class' => 'btn btn-success btn-sm'
-          )
-        )
-      }}
-    </span> --}}
-
   </div>
 
 </div>
@@ -107,16 +94,16 @@
 @section('SCRIPTS')
 
   <!-- ()_SearchPanel -->
-  <script src="{{ asset('assets/js/()_search.panel.js') }}"></script>
+  <script src="/assets/js/()_search.panel.js"></script>
 
   <!-- ()_FilterForm -->
-  <script src="{{ asset('assets/js/()_filter.form.js') }}"></script>
+  <script src="/assets/js/()_filter.form.js"></script>
 
   <!-- ()_TableDescription -->
-  <script src="{{ asset('assets/js/()_table.description.js') }}"></script>
+  <script src="/assets/js/()_table.description.js"></script>
 
   <!-- ()_DataTable -->
-  <script src="{{ asset('assets/js/()_datatable.js') }}"></script>
+  <script src="/assets/js/()_datatable.js"></script>
 
   <!-- ()_DataTable - Initialize -->
   <script type="text/javascript">

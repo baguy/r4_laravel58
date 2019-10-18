@@ -6,8 +6,6 @@
 
 @section('STYLES')
 
-  <!-- &_Users -->
-  <link rel="stylesheet" href="{{ asset('assets/css/&_users.css') }}">
 
 @stop
 
@@ -68,28 +66,28 @@
 @section('SCRIPTS')
 
   <!-- Search Panel -->
-  <script src="{{ asset('assets/js/()_search.panel.js') }}"></script>
+  <script src="/assets/js/()_search.panel.js"></script>
 
   <!-- Filter Form -->
-  <script src="{{ asset('assets/js/()_filter.form.js') }}"></script>
+  <script src="/assets/js/()_filter.form.js"></script>
 
   <!-- Table Description -->
-  <script src="{{ asset('assets/js/()_table.description.js') }}"></script>
+  <script src="/assets/js/()_table.description.js"></script>
 
   <!-- DataTable -->
-  <script src="{{ asset('assets/js/()_datatable.js') }}"></script>
+  <script src="/assets/js/()_datatable.js"></script>
 
   <!-- JQuery File Download -->
-  <!-- <script src="{{ asset('assets/plugins/jquery-fileDownload/jquery.fileDownload.js') }}"></script> -->
+  <!-- <script src="/assets/plugins/jquery-fileDownload/jquery.fileDownload.js"></script> -->
 
   <!-- Data Export -->
-  <script src="{{ asset('assets/js/()_data.export.js') }}"></script>
+  <script src="/assets/js/()_data.export.js"></script>
 
   <!-- Data Print -->
-  <script src="{{ asset('assets/js/()_data.print.js') }}"></script>
+  <script src="/assets/js/()_data.print.js"></script>
 
   <!-- ()_Select2Builder -->
-  <script src="{{ asset('assets/js/()_select2.builder.js') }}"></script>
+  <script src="/assets/js/()_select2.builder.js"></script>
 
   <!-- DataTable - Initialize -->
   <script type="text/javascript">

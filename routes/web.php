@@ -43,7 +43,7 @@ Route::resource('comentarios', 'ComentarioController');
 
 // Error JS Route
 Route::get('errors/js', function() {
-	return View::make('errors.js');
+	return view('errors.js');
 });
 
 // Authentication Filter Verification

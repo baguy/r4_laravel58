@@ -11,7 +11,7 @@ class LoggerController extends BaseController {
 
 		$colors = LoggerHelper::getColors();
 
-		return View::make('logger.index', compact(['logs', 'colors']));
+		return view('logger.index', compact(['logs', 'colors']));
 	}
 
 }

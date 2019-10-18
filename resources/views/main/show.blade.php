@@ -6,8 +6,6 @@
 
 @section('STYLES')
 
-  <!-- &_Itens -->
-  <link rel="stylesheet" href="{{ asset('assets/css/&_itens.css') }}">
 
 @stop
 

@@ -34,14 +34,14 @@ class UserController extends BaseController {
 
   public function index() {
 
-    return View::make('users.index')->with('selects', $this->service->selects(true));
+    return view('users.index')->with('selects', $this->service->selects(true));
   }
 
   public function create() {
 
     $roles = $this->role->orderBy('id', 'ASC')->get(['id', 'name', 'description']);
 
-    return View::make('users.create')->with('roles', $roles)->with('selects', $this->selects);
+    return view('users.create')->with('roles', $roles)->with('selects', $this->selects);
   }
 
   public function store() {
@@ -89,7 +89,7 @@ class UserController extends BaseController {
 
     $logs   = $user->loggers()->orderBy('id', 'DESC')->take($take)->get();
 
-    return View::make('users.show', compact(['user', 'logs', 'colors', 'icons', 'take']));
+    return view('users.show', compact(['user', 'logs', 'colors', 'icons', 'take']));
   }
 
   public function edit($id) {
@@ -102,7 +102,7 @@ class UserController extends BaseController {
 
     $this->service->accessVerification($user);
 
-    return View::make('users.edit', compact('user'))
+    return view('users.edit', compact('user'))
                                                   ->with('roles', $roles)
                                                   ->with('selects', $this->selects);
   }
@@ -176,7 +176,7 @@ class UserController extends BaseController {
 
       Session::flash('_warn', Lang::get('users.msg.is-default-password'));
 
-    return View::make('users.change-password', compact('user'));
+    return view('users.change-password', compact('user'));
   }
 
   public function alterPassword($id) {
@@ -226,7 +226,7 @@ class UserController extends BaseController {
 
   public function createAvatar() {
 
-    return View::make('users.create_avatar');
+    return view('users.create_avatar');
   }
 
   public function uploadAvatar() {

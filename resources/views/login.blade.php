@@ -9,7 +9,7 @@
 <div class="login-box">
 
   <div class="login-logo">
-    <img class="img-circle elevation-3" src="assets/img/icone.png" alt="SEPEDI" style="height:15%; width:15%; background-color:#7a2100">
+    <img class="img-circle elevation-3" src="/assets/img/icone.png" alt="SEPEDI" style="height:15%; width:15%; background-color:#7a2100">
     <b>{{ trans('application.config.name') }}</b>{{ trans('application.config.nickname') }}
   </div>
 

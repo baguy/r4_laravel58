@@ -39,7 +39,7 @@ class BaseController extends Controller {
 	protected function setupLayout() {
 
 		if (!is_null($this->layout)) {
-			$this->layout = View::make($this->layout);
+			$this->layout = view($this->layout);
 		}
 	}
 
@@ -113,7 +113,7 @@ class BaseController extends Controller {
 
 			$elements = $elements->getContent(null, $perPage)->build();
 
-			return View::make("{$object['folder']}.table", compact('elements'));
+			return view("{$object['folder']}.table", compact('elements'));
 
 		}
 

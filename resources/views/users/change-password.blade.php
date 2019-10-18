@@ -6,16 +6,16 @@
 
 @section('MAIN')
 
-	{{ 
+	{{
 		Form::model(
-			$user, 
+			$user,
 			array(
-				'id' => 'changePasswordForm', 
-				'method' => 'PATCH', 
-				'route' => array('users.alter-password', $user->id), 
+				'id' => 'changePasswordForm',
+				'method' => 'PATCH',
+				'route' => array('users.alter-password', $user->id),
       	'data-validation-errors' => trans('application.msg.error.validation-errors')
       )
-    ) 
+    )
   }}
 
 	  <div class="card">
@@ -34,16 +34,16 @@
 
             {{
               Form::input(
-                'password', 
-                'actual_password', 
-                Input::old('actual_password'), 
+                'password',
+                'actual_password',
+                Input::old('actual_password'),
                 array(
-                  'class'            => 'form-control', 
-                  'placeholder'      => trans('users.plh.actual-password'), 
-                  'aria-describedby' => 'actualPasswordHelp', 
+                  'class'            => 'form-control',
+                  'placeholder'      => trans('users.plh.actual-password'),
+                  'aria-describedby' => 'actualPasswordHelp',
                   'aria-labelledby'  => 'actualPasswordAddon'
                 )
-              ) 
+              )
             }}
 
             <div class="input-group-append">
@@ -65,24 +65,24 @@
           </small>
 
         </div>
-	          
+
 	      <div class="form-group {{ ($errors->has('password')) ? 'has-error' : '' }}">
 
 	        {{ Form::label('password', trans('users.lbl.new-password')) }}
 
 	        <div class="input-group">
 
-	          {{ 
+	          {{
 	            Form::input(
-	              'password', 
-	              'password', 
-	              Input::old('password'), 
+	              'password',
+	              'password',
+	              Input::old('password'),
 	              array(
-	                'class'            => 'form-control', 
-	                'placeholder'      => trans('users.plh.new-password'), 
+	                'class'            => 'form-control',
+	                'placeholder'      => trans('users.plh.new-password'),
 	                'aria-describedby' => 'passwordAddon'
 	              )
-	            ) 
+	            )
 	          }}
 
 	          <div class="input-group-append">
@@ -90,7 +90,7 @@
 	              <i class="fas fa-lock fa-fw"></i>
 	            </span>
 	          </div>
-	          
+
 	          @if ($errors->has('password'))
 	          <div class="invalid-feedback">
 	            {{ $errors->first('password') }}
@@ -107,19 +107,19 @@
 
 	        <div class="input-group">
 
-	          {{ 
+	          {{
 	            Form::input(
-	              'password', 
-	              'password_confirmation', 
-	              Input::old('password_confirmation'), 
+	              'password',
+	              'password_confirmation',
+	              Input::old('password_confirmation'),
 	              array(
-	                'class'            => 'form-control', 
-	                'placeholder'      => (isset($user->id)) ? 
-	                  trans('users.plh.new-password-confirmation') : 
-	                  trans('users.plh.password-confirmation'), 
+	                'class'            => 'form-control',
+	                'placeholder'      => (isset($user->id)) ?
+	                  trans('users.plh.new-password-confirmation') :
+	                  trans('users.plh.password-confirmation'),
 	                'aria-describedby' => 'passwordConfirmationAddon'
 	              )
-	            ) 
+	            )
 	          }}
 
 	          <div class="input-group-append">
@@ -127,7 +127,7 @@
 	              <i class="fas fa-check-square fa-fw"></i>
 	            </span>
 	          </div>
-	            
+
 	          @if ($errors->has('password_confirmation'))
 	          <div class="invalid-feedback">
 	            {{ $errors->first('password_confirmation') }}
@@ -153,18 +153,18 @@
 @section('SCRIPTS')
 
   <!-- JQuery Validation -->
-  <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
 
   <!-- JQuery Validation - Additional Methods -->
-  <script src="{{ asset('assets/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+  <script src="/assets/plugins/jquery-validation/additional-methods.min.js"></script>
 
   <!-- JQuery Validation - Localization pt_BR -->
-  <script src="{{ asset('assets/plugins/jquery-validation/localization/messages_pt_BR.min.js') }}"></script>
+  <script src="/assets/plugins/jquery-validation/localization/messages_pt_BR.min.js"></script>
 
   <!-- JQuery Form Validator -->
-  <script src="{{ asset('assets/js/jQuery.form.validator.js') }}"></script>
+  <script src="/assets/js/jQuery.form.validator.js"></script>
 
   <!-- $_ChangePassword -->
-  <script src="{{ asset('assets/js/$_change.password.js') }}"></script>
-  
+  <script src="/assets/js/$_change.password.js"></script>
+
 @stop
