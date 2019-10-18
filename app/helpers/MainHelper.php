@@ -2,11 +2,13 @@
 
 namespace App\helpers;
 
+use Resources\lang;
+
 class MainHelper {
 
 	public static function fixArray($field, $originals) {
 
-		$prepend = array('' => mb_strtoupper(Lang::get('application.form.select.empty', [ 'field' => $field ]), 'UTF-8'));
+		$prepend = array('' => mb_strtoupper(trans('application.form.select.empty', [ 'field' => $field ]), 'UTF-8'));
 
 		return $prepend + $originals;
 	}

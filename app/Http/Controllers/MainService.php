@@ -9,6 +9,7 @@ use App\helpers\FormatterHelper;
 use App\helpers\LoggingHelper;
 use App\User;
 use App\Main;
+use Resources\lang;
 
 class MainService extends BaseService {
 
@@ -27,8 +28,8 @@ class MainService extends BaseService {
     return [
 
       'status'        => MainHelper::fixArray('status', [
-                          '1' => mb_strtoupper(Lang::get('application.lbl.active'), 'UTF-8'),
-                          '0' => mb_strtoupper(Lang::get('application.lbl.inactive'), 'UTF-8')
+                          '1' => mb_strtoupper(trans('application.lbl.active'), 'UTF-8'),
+                          '0' => mb_strtoupper(trans('application.lbl.inactive'), 'UTF-8')
                         ])
     ];
   }
@@ -126,8 +127,6 @@ class MainService extends BaseService {
           $exists = Tag::withTrashed()->where('nome', $value)->first();
 
           if (!empty($exists))
-
-            throw new AlreadyExistsException(Lang::get('tags.exception.already-exists', ['value' => $value]));
 
           $input      = FormatterHelper::filter(['nome' => $value], array('nome'), 'strtolower');
 

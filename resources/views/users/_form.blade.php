@@ -499,7 +499,7 @@
       @if (isset($user->id))
 
         {{
-          link_to_route(
+          route(
             'users.show',
             trans('application.btn.cancel'),
             $user->id,

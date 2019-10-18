@@ -6,6 +6,7 @@ use App\Logger;
 use App\User;
 use App\validators\UniqueValidator;
 use App\Http\Controllers\BaseService;
+use View;
 
 class BaseController extends Controller {
 

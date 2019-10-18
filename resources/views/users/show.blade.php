@@ -52,7 +52,7 @@
           <p class="text-muted text-center">
             <label>{{ trans('users.page.title.avatar') }}</label>
             {{
-              link_to_route(
+              route(
                 'users.avatar',
                 trans('application.btn.upload'),
                 Auth::user()->id,

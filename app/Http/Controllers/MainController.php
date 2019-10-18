@@ -31,7 +31,7 @@ class MainController extends BaseController {
         'usuarios' => User::all()
     ];
 
-    return View::make('main.index', compact('data'))->with('selects', $this->service->selects(true));
+    return view('main.index', compact('data'))->with('selects', $this->service->selects(true));
   }
 
   public function create() {

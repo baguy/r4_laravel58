@@ -29,7 +29,6 @@ Route::get('new', ['as' => 'new', 'uses' => 'AuthController@newUser']);
 Route::post('newStore', ['as' => 'auth.newStore', 'uses' => 'AuthController@newStore']);
 
 // Authentication
-Route::get('login', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');
 Route::get('password/remind', 'AuthController@getRemind');
 Route::post('password/remind', 'AuthController@postRemind');

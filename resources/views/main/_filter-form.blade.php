@@ -143,7 +143,7 @@
         }}
 
         {{
-          link_to_route(
+          route(
             'users.index',
             trans('application.btn.clean'),
             null,

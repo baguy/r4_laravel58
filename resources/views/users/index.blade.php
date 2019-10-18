@@ -21,7 +21,7 @@
 
     <span class="float-right">
       {{
-        link_to_route(
+        route(
           'users.create',
           trans('application.btn.add-new'),
           null,
@@ -48,7 +48,7 @@
 
     <span class="float-right">
       {{
-        link_to_route(
+        route(
           'users.create',
           trans('application.btn.add-new'),
           null,

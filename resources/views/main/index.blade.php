@@ -20,7 +20,7 @@
       <div class="col-1">
         <span class="float-right">
           {{
-            link_to_route(
+            route(
               'users.show',
               trans('users.page.title.show'),
               Auth::user()->id,
@@ -36,7 +36,7 @@
       <div class="col-1">
         <span class="float-right">
           {{
-            link_to_route(
+            route(
               'login',
               trans('application.btn.login'),
               null,
@@ -87,7 +87,7 @@
 
     {{-- <span class="float-right">
       {{
-        link_to_route(
+        route(
           'main.create',
           trans('application.btn.add-new'),
           null,
