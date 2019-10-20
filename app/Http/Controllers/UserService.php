@@ -13,6 +13,7 @@ use App\Role;
 use Auth;
 use Hash;
 use App\Throttle;
+use DB;
 
 class UserService extends BaseService {
 

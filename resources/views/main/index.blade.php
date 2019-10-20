@@ -17,10 +17,9 @@
     </div>
 
     @if(Auth::user())
-      <?php $link = '/users/show/'.Auth::user()->id ?>
       <div class="col-1">
         <span class="float-right mr-2">
-          <a href=<?php echo $link ?>>{{trans('users.page.title.show')}}</a>
+          <a href="{{ route('users.show', auth()->user()->id) }}">{{trans('users.page.title.show')}}</a>
         </span>
       </div>
 
