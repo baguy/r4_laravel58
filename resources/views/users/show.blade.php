@@ -1,3 +1,5 @@
+<?php use App\helpers\FormatterHelper; ?>
+
 @extends('templates.application')
 
 @section('PAGE_TITLE')
@@ -6,19 +8,19 @@
 
 @section('MAIN')
 
-  @define $isAdmin           = Auth::user()->hasRole('ADMIN')
+  <?php $isAdmin = Auth::user()->hasRole('ADMIN'); ?>
 
-  @define $userIsAuth        = $user->userIsAuth($user)
+  <?php $userIsAuth        = $user->userIsAuth($user); ?>
 
-  @define $isTrashed         = $user->trashed()
+  <?php $isTrashed         = $user->trashed(); ?>
 
-  @define $isSuspended       = $user->throttle->suspended
+  <?php $isSuspended       = $user->throttle->suspended; ?>
 
-  @define $isDefaultPassword = $user->throttle->is_default_password
+  <?php $isDefaultPassword = $user->throttle->is_default_password; ?>
 
-  @define $userMinRoleId     = $user->minRole()->id
+  <?php $userMinRoleId     = $user->minRole()->id; ?>
 
-  @define $authMinRoleId     = Auth::user()->minRole()->id
+  <?php $authMinRoleId     = Auth::user()->minRole()->id; ?>
 
 
   <div class="row">
@@ -37,7 +39,7 @@
                    src="/assets/_dist/img/avatar_128x128.png"
                    alt="{{ $user->name }}">
             @else
-              @define $link = '/assets/_dist/img/avatar/'.$user->avatar
+              <?php $link = '/assets/_dist/img/avatar/'.$user->avatar ?>
               <img class="profile-user-img img-fluid img-circle"
                    style="height:128px; width:128px;"
                    src=<?php echo $link ?>
@@ -52,16 +54,7 @@
 
           <p class="text-muted text-center">
             <label>{{ trans('users.page.title.avatar') }}</label>
-            {{
-              route(
-                'users.avatar',
-                trans('application.btn.upload'),
-                Auth::user()->id,
-                array(
-                  'class' => 'btn btn-primary btn-sm'
-                )
-                )
-              }}
+              <a href="/users/avatar" class='btn btn-primary btn-sm'>{{trans('application.btn.upload')}}</a>
           </p>
 
           <ul class="list-group list-group-unbordered mb-3">
@@ -168,11 +161,11 @@
 
           <hr>
 
-          <strong class="d-block"><i class="fas fa-layer-group fa-fw mr-1"></i> {{ trans('users.lbl.roles') }}</strong>
+          {{-- <strong class="d-block"><i class="fas fa-layer-group fa-fw mr-1"></i> {{ trans('users.lbl.roles') }}</strong>
 
           <span class="badge badge-secondary">
             {{ $user->minRole()->name }}
-          </span>
+          </span> --}}
 
         </div>
 
@@ -235,13 +228,13 @@
 
                 <hr>
 
-                @define $minutes = 0
+                <?php $minutes = 0; ?>
 
                 @if ($isSuspended)
 
-                  @define $time    = strtotime($user->throttle->last_attempt_at . User::SUSPENSION_TIME) - strtotime('now');
+                  <?php $time    = strtotime($user->throttle->last_attempt_at . User::SUSPENSION_TIME) - strtotime('now'); ?>
 
-                  @define $minutes = round(((($time % 604800) % 86400) % 3600) / 60);
+                  <?php $minutes = round(((($time % 604800) % 86400) % 3600) / 60); ?>
 
                 @endif
 

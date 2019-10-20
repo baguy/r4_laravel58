@@ -1,11 +1,16 @@
 <?php
 
+namespace App\validators;
+
+use App\Events\Event;
+use Validator;
+
 class UniqueValidator {
 
   private static $rules = [];
 
   private static $messages = [];
-	
+
 	public static function validate($input, $table, $field, $id) {
 
 		self::$rules = [
@@ -16,7 +21,7 @@ class UniqueValidator {
 
 			$parameters = array_filter($input, function($k) use($field) { return $k !== $field; }, ARRAY_FILTER_USE_KEY);
 
-			$extras = implode(',', array_map(function ($v, $k) { 
+			$extras = implode(',', array_map(function ($v, $k) {
 
 	    		return sprintf("%s,%s", $k, $v);
 

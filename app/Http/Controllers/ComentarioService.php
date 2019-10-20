@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\BaseService;
 use App\User;
 use App\Comentario;
+use App\ComentarioAtualizacao;
 use App\Http\AuthController;
 use App\helpers\MainHelper;
+use DB;
+use Auth;
 
 class ComentarioService extends BaseService {
 

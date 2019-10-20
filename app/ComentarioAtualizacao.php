@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use App\Comentario;
 
 class ComentarioAtualizacao extends Model {
 
@@ -13,7 +14,7 @@ class ComentarioAtualizacao extends Model {
     protected $fillable = array('comment_id','text');
 
     public function comentario(){
-      return $this->belongsTo('Comentario','comment_id','id');
+      return $this->belongsTo('App\Comentario','comment_id','id');
     }
 
 }

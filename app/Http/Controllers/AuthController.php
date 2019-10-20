@@ -1,8 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Logger;
 use App\User;
+use Input;
+use App\validators\AuthValidator;
+use Auth;
+use App\Throttle;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends BaseController {
 
@@ -28,13 +34,13 @@ class AuthController extends BaseController {
 
         $remember = true;
 
-      Event::fire('auth.trying', $input['email']);
+      event('auth.trying', $input['email']);
 
       if (Auth::attempt(array('email' => $input['email'], 'password' => $input['password']), $remember)) {
 
         $user = Auth::user();
 
-        Event::fire('auth.login', array($user));
+        event('auth.login', array($user));
 
         if ($user->throttle->is_first_access)
 
@@ -44,7 +50,7 @@ class AuthController extends BaseController {
 
       } else {
 
-        Event::fire('auth.attempting', $input['email']);
+        event('auth.attempting', $input['email']);
 
         $user = User::where('email', $input['email'])->withTrashed()->first();
 

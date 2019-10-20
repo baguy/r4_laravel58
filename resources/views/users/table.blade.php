@@ -1,18 +1,18 @@
 @if ($elements->count())
 
-  @define $isAdmin = Auth::user()->hasRole('ADMIN')
+  <?php $isAdmin = Auth::user()->hasRole('ADMIN'); ?>
 
-  @define $C_sort  = Input::get('C_sort')
+  <?php $C_sort  = Input::get('C_sort'); ?>
 
-  @define $C_group = Input::get('C_group')
+  <?phpe $C_group = Input::get('C_group'); ?>
 
   <div class="text-center text-secondary border-top py-3">
     {{
       trans('pagination.table.caption', [
-        'total' => $elements->getTotal(),
-        'currentPage' => $elements->getCurrentPage(),
-        'lastPage' => $elements->getLastPage(),
-        'perPage' => $elements->getPerPage()
+        'total' => $elements->total(),
+        'currentPage' => $elements->currentPage(),
+        'lastPage' => $elements->lastPage(),
+        'perPage' => $elements->perPage()
       ])
     }}
   </div>
@@ -24,10 +24,10 @@
       <caption class="text-center border-top">
         {{
           trans('pagination.table.caption', [
-            'total' => $elements->getTotal(),
-            'currentPage' => $elements->getCurrentPage(),
-            'lastPage' => $elements->getLastPage(),
-            'perPage' => $elements->getPerPage()
+            'total' => $elements->total(),
+            'currentPage' => $elements->currentPage(),
+            'lastPage' => $elements->lastPage(),
+            'perPage' => $elements->perPage()
           ])
         }}
       </caption>
@@ -115,7 +115,7 @@
 
         @foreach ($elements as $user)
 
-          @define $isTrashed = $user->trashed()
+          <?php $isTrashed = $user->trashed(); ?>
 
           <tr class="{{ ($isTrashed) ? 'table-danger' : '' }}">
 

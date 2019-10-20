@@ -26,17 +26,17 @@
 
           <div class="input-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
 
-            {{ 
+            {{
               Form::email(
-                'email', Input::old('email'), 
+                'email', Input::old('email'),
                 array(
                   'id'               => 'email',
-                  'class'            => 'form-control', 
-                  'placeholder'      => trans('users.lbl.email'), 
-                  'aria-describedby' => 'emailHelp', 
+                  'class'            => 'form-control',
+                  'placeholder'      => trans('users.lbl.email'),
+                  'aria-describedby' => 'emailHelp',
                   'aria-labelledby'  => 'emailAddon'
                 )
-              ) 
+              )
             }}
 
             <div class="input-group-append">
@@ -50,18 +50,8 @@
               {{ $errors->first('email') }}
             </div>
             @endif
-            
-          </div>
 
-          <small id="emailHelp" class="form-text text-muted">
-            {{ trans('application.misc.institutional-email') }} - <code class="text-info" 
-            data-tooltip="tooltip" 
-            data-placement="bottom" 
-            data-container="small" 
-            title="{{ trans('application.misc.click-to-copy') }}" style="cursor: pointer;">
-              {{'@'}}{{ trans('application.config.site-domain') }}
-            </code>
-          </small>
+          </div>
 
         </div>
 

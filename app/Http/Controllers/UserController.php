@@ -1,10 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\User;
 use App\Throttle;
 use App\Role;
 use App\Logger;
+use Input;
+use Auth;
+use Redirect;
+use App\Http\Controllers\UseService;
+use App\helpers\LoggingHelper;
+use App\helpers\LoggerHelper;
+use App\validators\UserValidator;
 
 class UserController extends BaseController {
 
@@ -26,8 +34,8 @@ class UserController extends BaseController {
 
     $this->selects = $this->service->selects();
 
-    $this->beforeFilter('role:SUPER', array('only' => array('redefinePassword')));
-    $this->beforeFilter('role:ADMIN', array('only' => array(
+    $this->middleware('role:SUPER', array('only' => array('redefinePassword')));
+    $this->middleware('role:ADMIN', array('only' => array(
       'create', 'store', 'destroy', 'restore', 'report', 'export', 'printAll'
     )));
   }
@@ -57,20 +65,20 @@ class UserController extends BaseController {
         $this->service->store($input);
 
         return Redirect::route('users.index')
-                        ->with('_status', Lang::get('application.msg.status.resource-created-successfully'));
+                        ->with('_status', trans('application.msg.status.resource-created-successfully'));
 
       } catch (Exception $e) {
 
         Session::flash('_old_input', Input::all());
 
-        return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+        return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
       }
     }
 
     return Redirect::route('users.create')
                     ->withInput()
                     ->withErrors($validator)
-                    ->with('_error', Lang::get('application.msg.error.validation-errors'));
+                    ->with('_error', trans('application.msg.error.validation-errors'));
   }
 
   public function show($id) {
@@ -116,13 +124,13 @@ class UserController extends BaseController {
       $this->service->update($input, $id);
 
       return Redirect::route('users.show', $id)
-                      ->with('_status', Lang::get('application.msg.status.resource-updated-successfully'));
+                      ->with('_status', trans('application.msg.status.resource-updated-successfully'));
 
     } catch (Exception $e) {
 
       Session::flash('_old_input', Input::all());
 
-      return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+      return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
     }
 
   }
@@ -139,11 +147,11 @@ class UserController extends BaseController {
       $this->service->destroy($id);
 
       return Redirect::route('users.index')
-                      ->with('_status', Lang::get('application.msg.status.resource-deleted-successfully'));
+                      ->with('_status', trans('application.msg.status.resource-deleted-successfully'));
 
     } catch (Exception $e) {
 
-      return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+      return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
     }
   }
 
@@ -158,11 +166,11 @@ class UserController extends BaseController {
       $this->service->restore($id);
 
       return Redirect::route('users.index')
-                      ->with('_status', Lang::get('application.msg.status.resource-restored-successfully'));
+                      ->with('_status', trans('application.msg.status.resource-restored-successfully'));
 
     } catch (Exception $e) {
 
-      return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+      return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
     }
   }
 
@@ -174,7 +182,7 @@ class UserController extends BaseController {
 
     if ($user->throttle->is_default_password)
 
-      Session::flash('_warn', Lang::get('users.msg.is-default-password'));
+      Session::flash('_warn', trans('users.msg.is-default-password'));
 
     return view('users.change-password', compact('user'));
   }
@@ -192,20 +200,20 @@ class UserController extends BaseController {
         $this->service->alterPassword($input, $id);
 
         return Redirect::route('users.show', $id)
-                        ->with('_status', Lang::get('application.msg.status.resource-updated-successfully'));
+                        ->with('_status', trans('application.msg.status.resource-updated-successfully'));
 
       } catch (Exception $e) {
 
         Session::flash('_old_input', Input::all());
 
-        return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+        return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
       }
     }
 
     return Redirect::route('users.change-password', $id)
                     ->withInput()
                     ->withErrors($validator)
-                    ->with('_error', Lang::get('application.msg.error.validation-errors'));
+                    ->with('_error', trans('application.msg.error.validation-errors'));
   }
 
   public function redefinePassword($id) {
@@ -215,11 +223,11 @@ class UserController extends BaseController {
       $this->service->redefinePassword($id);
 
       return Redirect::route('users.index')
-                      ->with('_status', Lang::get('users.msg.password-redefined-successfully'));
+                      ->with('_status', trans('users.msg.password-redefined-successfully'));
 
     } catch (Exception $e) {
 
-      return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+      return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
     }
   }
 
@@ -243,20 +251,20 @@ class UserController extends BaseController {
         $user->save();
 
         return Redirect::back()
-                        ->with('_status', Lang::get('application.msg.status.upload-successfull'));
+                        ->with('_status', trans('application.msg.status.upload-successfull'));
 
       } catch (Exception $e) {
 
         Session::flash('_old_input', Input::all());
 
-        return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+        return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
       }
 
     }
 
     return Redirect::back()
                     ->withInput()
-                    ->with('_error', Lang::get('application.msg.error.upload'));
+                    ->with('_error', trans('application.msg.error.upload'));
   }
 
 }

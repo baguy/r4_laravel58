@@ -2,6 +2,8 @@
 
 namespace App\helpers;
 
+use DateTime;
+
 class FormatterHelper {
 
   public static function filter($inputs, $fields = array(), $case = 'strtoupper', $replace = true) {

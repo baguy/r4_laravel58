@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\DashboardService;
+
 class DashboardController extends BaseController {
 
 	protected $service;

@@ -2,7 +2,7 @@
 
   <!-- Brand Logo -->
   <a href="{{ url('/') }}" class="brand-link">
-    <img src="{{ asset('assets/img/icone.png') }}"
+    <img src="/assets/img/icone.png"
          alt="Solutions logo"
          class="brand-image img-circle elevation-3"
          style="opacity: .8">
@@ -20,7 +20,8 @@
         @if(is_null(Auth::user()->avatar))
           <i class="fas fa-user-circle fa-2x text-muted"></i>
         @else
-          <img src="{{ asset('assets/_dist/img/avatar/'.Auth::user()->avatar) }}"
+          <?php $link = '/assets/_dist/img/avatar/'.Auth::user()->avatar ?>
+          <img src=<?php echo $link ?>
                alt="{{ Auth::user()->name }}"
                class="brand-image img-circle elevation-3"
                style="opacity: .8">
@@ -87,7 +88,7 @@
           </li>
 
         @endif
-        
+
       </ul>
 
     </nav>

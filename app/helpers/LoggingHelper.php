@@ -7,7 +7,7 @@ class LoggingHelper {
   // Logs the create operation
   public static function create($model) {
 
-    LoggerHelper::log('CREATE', Lang::get('logs.msg.create', [
+    LoggerHelper::log('CREATE', trans('logs.msg.create', [
       'resource' => MainHelper::getTable($model),
       'id' => $model->id
     ]));
@@ -15,7 +15,7 @@ class LoggingHelper {
 
   public static function create_nome($model) {
 
-    LoggerHelper::log('CREATE', Lang::get('logs.msg.create.nome', [
+    LoggerHelper::log('CREATE', trans('logs.msg.create.nome', [
       'resource' => MainHelper::getTable($model),
       'nome'     => $model->nome,
       'id'       => $model->id
@@ -24,7 +24,7 @@ class LoggingHelper {
 
   public static function create_laudo($model, $nome, $numero) {
 
-    LoggerHelper::log('UPDATE', Lang::get('logs.msg.create.laudo', [
+    LoggerHelper::log('UPDATE', trans('logs.msg.create.laudo', [
       'resource' => MainHelper::getTable($model),
       'nome'     => $nome,
       'numero'    => $numero,
@@ -36,7 +36,7 @@ class LoggingHelper {
   // Logs the show operation
   public static function show($model) {
 
-    LoggerHelper::log('SHOW', Lang::get('logs.msg.show', [
+    LoggerHelper::log('SHOW', trans('logs.msg.show', [
       'resource' => MainHelper::getTable($model),
       'id'       => $model->id
     ]));
@@ -45,7 +45,7 @@ class LoggingHelper {
   // Logs the update operation
   public static function update($model) {
 
-    LoggerHelper::log('UPDATE', Lang::get('logs.msg.update', [
+    LoggerHelper::log('UPDATE', trans('logs.msg.update', [
       'resource' => MainHelper::getTable($model),
       'id' => $model->id
     ]));
@@ -55,7 +55,7 @@ class LoggingHelper {
   // Logs the update operation
   public static function update_nome($model) {
 
-    LoggerHelper::log('UPDATE', Lang::get('logs.msg.update.nome', [
+    LoggerHelper::log('UPDATE', trans('logs.msg.update.nome', [
       'resource' => MainHelper::getTable($model),
       'nome'     => $model->nome,
       'id' => $model->id
@@ -66,7 +66,7 @@ class LoggingHelper {
   // Logs the update operation
   public static function update_exame($model, $numero) {
 
-    LoggerHelper::log('UPDATE', Lang::get('logs.msg.update.exame', [
+    LoggerHelper::log('UPDATE', trans('logs.msg.update.exame', [
       'resource' => MainHelper::getTable($model),
       'numero'   => $numero,
       'id' => $model->id
@@ -77,7 +77,7 @@ class LoggingHelper {
   // Logs the update operation
   public static function update_laudo($model, $nome, $numero) {
 
-    LoggerHelper::log('UPDATE', Lang::get('logs.msg.update.laudo', [
+    LoggerHelper::log('UPDATE', trans('logs.msg.update.laudo', [
       'resource' => MainHelper::getTable($model),
       'nome'     => $nome,
       'numero'    => $numero,
@@ -89,7 +89,7 @@ class LoggingHelper {
   // Logs the delete operation
   public static function delete($model) {
 
-    LoggerHelper::log('DELETE', Lang::get('logs.msg.delete.forced', [
+    LoggerHelper::log('DELETE', trans('logs.msg.delete.forced', [
       'resource' => MainHelper::getTable($model),
       'id' => $model->id
     ]));
@@ -98,7 +98,7 @@ class LoggingHelper {
   // Logs the destroy operation
   public static function destroy($model) {
 
-    LoggerHelper::log('DESTROY', Lang::get('logs.msg.delete.soft', [
+    LoggerHelper::log('DESTROY', trans('logs.msg.delete.soft', [
       'resource' => MainHelper::getTable($model),
       'id' => $model->id
     ]));
@@ -107,7 +107,7 @@ class LoggingHelper {
   // Logs the restore operation
   public static function restore($model) {
 
-    LoggerHelper::log('RESTORE', Lang::get('logs.msg.restore', [
+    LoggerHelper::log('RESTORE', trans('logs.msg.restore', [
       'resource' => MainHelper::getTable($model),
       'id' => $model->id
     ]));
@@ -116,7 +116,7 @@ class LoggingHelper {
   // Logs the report operation
   public static function report($model, $parameters) {
 
-    LoggerHelper::log('REPORT', Lang::get('logs.msg.report', [
+    LoggerHelper::log('REPORT', trans('logs.msg.report', [
       'resource'   => MainHelper::getTable($model),
       'parameters' => json_encode($parameters)
     ]));
@@ -125,7 +125,7 @@ class LoggingHelper {
   // Logs the export operation
   public static function export($model, $format, $parameters, $title) {
 
-    LoggerHelper::log('EXPORT', Lang::get('logs.msg.export', [
+    LoggerHelper::log('EXPORT', trans('logs.msg.export', [
       'resource'    => MainHelper::getTable($model),
       'format'      => $format,
       'id'          => $model->id,
@@ -139,14 +139,14 @@ class LoggingHelper {
 
     if ($type === 'print-one')
 
-      LoggerHelper::log('PRINT', Lang::get('logs.msg.print-one', [
+      LoggerHelper::log('PRINT', trans('logs.msg.print-one', [
         'resource' => MainHelper::getTable($model),
         'id'       => $model->id
       ]));
 
     else
 
-      LoggerHelper::log('PRINT', Lang::get('logs.msg.print-all', [
+      LoggerHelper::log('PRINT', trans('logs.msg.print-all', [
         'resource'   => MainHelper::getTable($model),
         'parameters' => json_encode($parameters)
       ]));
@@ -155,13 +155,13 @@ class LoggingHelper {
   // Logs the dashboard content
   public static function dashboard() {
 
-    LoggerHelper::log('DASHBOARD', Lang::get('logs.msg.dashboard'));
+    LoggerHelper::log('DASHBOARD', trans('logs.msg.dashboard'));
   }
 
   // Logs the aprove operation
   public static function aprove($model) {
 
-    LoggerHelper::log('APROVE', Lang::get('logs.msg.aprove', [
+    LoggerHelper::log('APROVE', trans('logs.msg.aprove', [
       'resource' => MainHelper::getTable($model),
       'id'       => $model->id
     ]));
@@ -170,7 +170,7 @@ class LoggingHelper {
   // Logs the move operation
   public static function move($model,$nome, $numero) {
 
-    LoggerHelper::log('MOVE', Lang::get('logs.msg.move', [
+    LoggerHelper::log('MOVE', trans('logs.msg.move', [
       'resource' => MainHelper::getTable($model),
       'nome'     => $nome,
       'numero'   => $numero,
@@ -182,7 +182,7 @@ class LoggingHelper {
   // Logs the download operation
   public static function download($model,$nome,$numero) {
 
-    LoggerHelper::log('DOWNLOAD', Lang::get('logs.msg.download', [
+    LoggerHelper::log('DOWNLOAD', trans('logs.msg.download', [
       'resource' => MainHelper::getTable($model),
       'exame'    => $nome,
       'numero'   => $numero,

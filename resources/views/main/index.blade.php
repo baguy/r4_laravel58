@@ -17,36 +17,20 @@
     </div>
 
     @if(Auth::user())
+      <?php $link = '/users/show/'.Auth::user()->id ?>
       <div class="col-1">
-        <span class="float-right">
-          {{
-            route(
-              'users.show',
-              trans('users.page.title.show'),
-              Auth::user()->id,
-              array(
-                'class' => 'mr-2'
-              )
-              )
-            }}
-          </span>
-        </div>
+        <span class="float-right mr-2">
+          <a href=<?php echo $link ?>>{{trans('users.page.title.show')}}</a>
+        </span>
+      </div>
 
     @else
       <div class="col-1">
-        <span class="float-right">
-          {{
-            route(
-              'login',
-              trans('application.btn.login'),
-              null,
-              array(
-                'class' => 'mr-2'
-              )
-              )
-            }}
-          </span>
-        </div>
+        <span class="float-right mr-2">
+          <a href="/login/">{{trans('application.btn.login')}}</a>
+        </span>
+      </div>
+
     @endif
 
   </div>
@@ -79,7 +63,9 @@
 
     <br>
 
-    <div id="mainDataTableContainer" data-datatable-error="{{ trans('application.msg.error.datatable') }}"></div>
+    <center>
+      <div class="col-8" id="mainDataTableContainer" data-datatable-error="{{ trans('application.msg.error.datatable') }}"></div>
+    </center>
 
   </div>
 

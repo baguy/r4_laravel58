@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\BaseService;
 use App\User;
@@ -8,6 +8,11 @@ use App\Http\Controllers\AuthController;
 use App\helpers\MainHelper;
 use App\helpers\FormatterHelper;
 use App\helpers\LoggingHelper;
+use Input;
+use App\Role;
+use Auth;
+use Hash;
+use App\Throttle;
 
 class UserService extends BaseService {
 
@@ -23,22 +28,22 @@ class UserService extends BaseService {
     return [
 
       'status'              => MainHelper::fixArray('status', [
-                                '1' => mb_strtoupper(Lang::get('application.lbl.active'), 'UTF-8'),
-                                '2' => mb_strtoupper(Lang::get('application.lbl.inactive'), 'UTF-8'),
-                                '3' => mb_strtoupper(Lang::get('users.lbl.suspended'), 'UTF-8')
+                                '1' => mb_strtoupper(trans('application.lbl.active'), 'UTF-8'),
+                                '2' => mb_strtoupper(trans('application.lbl.inactive'), 'UTF-8'),
+                                '3' => mb_strtoupper(trans('users.lbl.suspended'), 'UTF-8')
                               ]),
 
-      'roles'               => MainHelper::fixArray('nível', Role::where('id', '>=', Auth::user()->minRole()->id)
-                                                                    ->orderBy('id', 'ASC')->lists('name', 'id')),
+      // 'roles'               => MainHelper::fixArray('nível', Role::where('id', '>=', Auth::user()->minRole()->id)
+      //                                                               ->orderBy('id', 'ASC')->lists('name', 'id')),
 
       'attempts'            => MainHelper::fixArray('tentativas', [
-                                '0' => mb_strtoupper(Lang::get('users.filter.attempts.opt.successful'), 'UTF-8'),
-                                '1' => mb_strtoupper(Lang::get('users.filter.attempts.opt.unsuccessful'), 'UTF-8')
+                                '0' => mb_strtoupper(trans('users.filter.attempts.opt.successful'), 'UTF-8'),
+                                '1' => mb_strtoupper(trans('users.filter.attempts.opt.unsuccessful'), 'UTF-8')
                               ]),
 
       'is_default_password' => MainHelper::fixArray('senhas', [
-                                true  => mb_strtoupper(Lang::get('users.filter.is_default_password.opt.default'), 'UTF-8'),
-                                false => mb_strtoupper(Lang::get('users.filter.is_default_password.opt.changed'), 'UTF-8')
+                                true  => mb_strtoupper(trans('users.filter.is_default_password.opt.default'), 'UTF-8'),
+                                false => mb_strtoupper(trans('users.filter.is_default_password.opt.changed'), 'UTF-8')
                               ]),
 
     ];
@@ -244,7 +249,7 @@ class UserService extends BaseService {
 
     $date       = Date('d-m-Y H-i-s');
 
-    $title      = Lang::get('users.user(s)');
+    $title      = trans('users.user(s)');
 
     $parameters = Input::except('_token', '_method');
 
@@ -279,7 +284,7 @@ class UserService extends BaseService {
   public function accessVerification($user, $is_change_password = false, $is_destroy = false) {
 
     if (is_null($user))
-      App::abort(404, Lang::get('application.error.404.msg'));
+      App::abort(404, trans('application.error.404.msg'));
 
     switch (true) {
 
@@ -288,7 +293,7 @@ class UserService extends BaseService {
       case !$this->user->userIsAuth($user) && $is_change_password: // Change Password
       case  $this->user->userIsAuth($user) && $is_destroy: // Destroy and Restore
 
-        App::abort(403, Lang::get('application.error.403.msg'));
+        App::abort(403, trans('application.error.403.msg'));
 
         break;
     }

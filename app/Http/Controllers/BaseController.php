@@ -7,6 +7,7 @@ use App\User;
 use App\validators\UniqueValidator;
 use App\Http\Controllers\BaseService;
 use View;
+use Input;
 
 class BaseController extends Controller {
 

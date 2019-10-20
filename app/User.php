@@ -11,6 +11,10 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use App\Throttle;
+use App\Logger;
+use App\Comentario;
+use Auth;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -29,19 +33,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   protected $guarded     = array('password');
 
   public function roles() {
-    return $this->belongsToMany('Role', 'users_roles');
+    return $this->belongsToMany('App\Role', 'users_roles');
   }
 
   public function loggers() {
-    return $this->hasMany('Logger');
+    return $this->hasMany('App\Logger');
   }
 
   public function throttle() {
-    return $this->hasOne('Throttle');
+    return $this->hasOne('App\Throttle');
   }
 
 	public function comments() {
-		return $this->hasMany('Comentario');
+		return $this->hasMany('App\Comentario');
 	}
 
   public function hasRole($name) {

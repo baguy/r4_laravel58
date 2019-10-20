@@ -1,3 +1,5 @@
+<?php use App\helpers\FormatterHelper; ?>
+
 @extends('templates.application')
 
 @section('PAGE_TITLE')
@@ -11,9 +13,9 @@
 
 @section('MAIN')
 
-  @define $isAdmin   = Auth::user()->hasRole('ADMIN')
+  <?php $isAdmin   = Auth::user()->hasRole('ADMIN'); ?>
 
-  @define $isTrashed = $produto->trashed()
+  <?php $isTrashed = $produto->trashed(); ?>
 
   <div class="row">
 

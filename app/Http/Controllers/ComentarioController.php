@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Comentario;
-use App\Http\ComentarioController;
+use App\Http\Controllers\ComentarioService;
+use App\Http\Controllers\BaseController;
+use App\helpers\LoggingHelper;
+use Input;
+use Redirect;
 
-class ComentarioController extends \BaseController {
+class ComentarioController extends BaseController {
 
 	protected $comentario;
 
@@ -60,13 +64,13 @@ class ComentarioController extends \BaseController {
 			ComentarioService::store($input);
 
 			return Redirect::back()
-											->with('_status', Lang::get('application.msg.status.resource-created-successfully'));
+											->with('_status', trans('application.msg.status.resource-created-successfully'));
 
 		} catch (Exception $e) {
 
 			Session::flash('_old_input', Input::all());
 
-			return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+			return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
 		}
 
 	}
@@ -111,13 +115,13 @@ class ComentarioController extends \BaseController {
         $this->service->update($input, $id);
 
         return Redirect::back()
-                        ->with('_status', Lang::get('application.msg.status.resource-updated-successfully'));
+                        ->with('_status', trans('application.msg.status.resource-updated-successfully'));
 
       } catch (Exception $e) {
 
         Session::flash('_old_input', Input::all());
 
-        return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+        return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
       }
 
 	}
@@ -141,11 +145,11 @@ class ComentarioController extends \BaseController {
 			LoggingHelper::destroy($comment);
 
 			return Redirect::route('main.index')
-											->with('_status', Lang::get('application.msg.status.resource-deleted-successfully'));
+											->with('_status', trans('application.msg.status.resource-deleted-successfully'));
 
 		} catch (Exception $e) {
 
-			return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+			return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
 		}
 	}
 
@@ -157,11 +161,11 @@ class ComentarioController extends \BaseController {
 			$comment->restore();
 
 			return Redirect::route('main.index')
-											->with('_status', Lang::get('application.msg.status.resource-restored-successfully'));
+											->with('_status', trans('application.msg.status.resource-restored-successfully'));
 
 		} catch (Exception $e) {
 
-			return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+			return Redirect::back()->with('_error', trans('application.msg.error.something-went-wrong'));
 		}
 	}
 

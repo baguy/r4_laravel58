@@ -1,5 +1,9 @@
 <?php
 
+namespace App\validators;
+
+use Validator;
+
 Class AuthValidator {
 
 	private static $attributes = [

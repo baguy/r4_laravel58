@@ -2,12 +2,12 @@
 
   <a class="nav-link" data-toggle="dropdown" href="#">
     <i class="fas fa-users"></i>
-    <span class="badge badge-danger navbar-badge">{{ $navbar_vars['messages']->count() }}</span>
+    {{-- <span class="badge badge-danger navbar-badge">{{ $navbar_vars['messages']->count() }}</span> --}}
   </a>
 
   <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-    @foreach ($navbar_vars['messages'] as $user)
+    {{-- @foreach ($navbar_vars['messages'] as $user)
 
       @define $attrColor = ($user->trashed()) ? (($user->throttle->suspended) ? 'warning' : 'danger') : 'success'
 
@@ -16,10 +16,10 @@
         <!-- Message Start -->
         <div class="media">
 
-          <img 
-            src="{{ asset('assets/_dist/img/avatar_128x128.png') }}" 
-            alt="User Avatar" 
-            class="img-size-50 mr-3 img-circle" 
+          <img
+            src="{{ asset('assets/_dist/img/avatar_128x128.png') }}"
+            alt="User Avatar"
+            class="img-size-50 mr-3 img-circle"
             style="width: 60px; padding: 2px; border: 2px solid #adb5bd;">
 
           <div class="media-body">
@@ -32,12 +32,12 @@
             <p class="text-sm">
 
               <span class="text-{{ $attrColor }} text-uppercase">
-                {{ 
-                  ($user->trashed()) ? 
-                    (($user->throttle->suspended) ? 
-                      trans('users.lbl.suspended') : 
-                      trans('application.lbl.inactive')) : 
-                  trans('application.lbl.active') 
+                {{
+                  ($user->trashed()) ?
+                    (($user->throttle->suspended) ?
+                      trans('users.lbl.suspended') :
+                      trans('application.lbl.inactive')) :
+                  trans('application.lbl.active')
                 }}
               </span>
 
@@ -64,7 +64,7 @@
 
       <div class="dropdown-divider"></div>
 
-    @endforeach
+    @endforeach --}}
 
     <a href="{{ route('users.index') }}" class="dropdown-item dropdown-footer">{{ trans('menus.navbar.messages.all') }}</a>
 

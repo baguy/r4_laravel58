@@ -1,7 +1,10 @@
+<?php use App\helpers\FormatterHelper; ?>
+<?php use App\Logger; ?>
+
 <li class="nav-item dropdown">
 
   <a class="nav-link" data-toggle="dropdown" href="#">
-    <i class="fas fa-bell"></i> <span class="badge badge-warning navbar-badge">{{ $navbar_vars['notifications']->count() }}</span>
+    {{-- <i class="fas fa-bell"></i> <span class="badge badge-warning navbar-badge">{{ $navbar_vars['notifications']->count() }}</span> --}}
   </a>
 
   <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -10,7 +13,7 @@
 
     <div class="dropdown-divider"></div>
 
-    @foreach ($navbar_vars['notifications'] as $log)
+    {{-- @foreach ($navbar_vars['notifications'] as $log)
 
       <a href="#" class="dropdown-item not-allowed" tabindex="-1" aria-disabled="true">
 
@@ -28,8 +31,8 @@
 
       <div class="dropdown-divider"></div>
 
-    @endforeach
-    
+    @endforeach --}}
+
     <a href="{{ route('logs.index') }}" class="dropdown-item dropdown-footer">{{ trans('menus.navbar.notifications.all') }}</a>
 
   </div>

@@ -58,9 +58,6 @@
     <!-- AdminLTE 3.0.0 Alpha -->
     <script src="/assets/_dist/js/adminlte.min.js"></script>
 
-    <!-- JQuery Email Auto Complete -->
-    <script src="/assets/plugins/email-autocomplete/jquery.email-autocomplete.min.js"></script>
-
     <!-- $_Auth -->
     <script src="/assets/js/$_auth.js"></script>
 

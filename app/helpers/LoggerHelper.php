@@ -2,12 +2,15 @@
 
 namespace App\helpers;
 
+use App\Logger;
+use Auth;
+
 class LoggerHelper {
 
   // Log Register - First records on database and after 10 days exports them to file text
   public static function log($action, $message) {
 
-    Event::fire('logger.exporting');
+    event('logger.exporting');
 
     $log     = Logger::orderBy('id', 'DESC')->first();
     $today   = date('Y-m-d H:i:s');
@@ -43,7 +46,7 @@ class LoggerHelper {
 
     if ($search) {
 
-      Self::log('SEARCH', Lang::get('logs.msg.index.search', [
+      Self::log('SEARCH', trans('logs.msg.index.search', [
         'resource' => 'LOGGER', 'parameters' => $search
       ]));
 

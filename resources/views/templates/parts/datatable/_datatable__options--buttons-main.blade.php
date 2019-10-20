@@ -20,12 +20,12 @@
 
 @endif
 
-@define $is_author = false;
+<?php $is_author = false; ?>
 
 @if( Auth::user() )
   @foreach(Auth::user()->comments as $key => $value)
     @if($value->id == $modal_id)
-      @define $is_author = true;
+      <?php $is_author = true; ?>
     @endif
   @endforeach
 

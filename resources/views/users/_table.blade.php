@@ -1,18 +1,18 @@
 @if ($elements->count())
 
-  @define $isSuper = Auth::user()->hasRole('SUPER')
+  <?php $isSuper = Auth::user()->hasRole('SUPER'); ?>
 
-  @define $C_sort  = Input::get('C_sort')
+  <?php $C_sort  = Input::get('C_sort'); ?>
 
-  @define $C_group = Input::get('C_group')
+  <?php $C_group = Input::get('C_group'); ?>
 
   <div class="text-center text-secondary border-top py-3">
     {{
       trans('pagination.table.caption', [
-        'total' => $elements->getTotal(),
-        'currentPage' => $elements->getCurrentPage(),
-        'lastPage' => $elements->getLastPage(),
-        'perPage' => $elements->getPerPage()
+        'total' => $elements->total(),
+        'currentPage' => $elements->currentPage(),
+        'lastPage' => $elements->lastPage(),
+        'perPage' => $elements->perPage()
       ])
     }}
   </div>
@@ -24,10 +24,10 @@
       <caption class="text-center">
         {{
           trans('pagination.table.caption', [
-            'total' => $elements->getTotal(),
-            'currentPage' => $elements->getCurrentPage(),
-            'lastPage' => $elements->getLastPage(),
-            'perPage' => $elements->getPerPage()
+            'total' => $elements->total(),
+            'currentPage' => $elements->currentPage(),
+            'lastPage' => $elements->lastPage(),
+            'perPage' => $elements->perPage()
           ])
         }}
       </caption>
@@ -148,15 +148,15 @@
 
         @foreach ($elements as $user)
 
-          @define $userIsAuth                    = $user->userIsAuth($user)
+          <?php $userIsAuth                    = $user->userIsAuth($user); ?>
 
-          @define $userRoleLessEqualThanAuthRole = $user->userMinRoleIsLessOrEqualThanAuthMinRole($user)
+          <?php $userRoleLessEqualThanAuthRole = $user->userMinRoleIsLessOrEqualThanAuthMinRole($user); ?>
 
-          @define $isTrashed                     = $user->trashed()
+          <?php $isTrashed                     = $user->trashed(); ?>
 
-          @define $isSuspended                   = $user->throttle->suspended
+          <?php $isSuspended                   = $user->throttle->suspended; ?>
 
-          @define $isDefaultPassword             = $user->throttle->is_default_password
+          <?php $isDefaultPassword             = $user->throttle->is_default_password; ?>
 
           <tr class="{{ ($isTrashed) ? (($isSuspended) ? 'table-warning' : 'table-danger') : '' }}">
 
@@ -185,7 +185,7 @@
 
             @if (!$C_group || $C_group === 'status')
 
-              @define $badgeColor = ($isTrashed) ? (($isSuspended) ? 'badge-warning' : 'badge-danger') : 'badge-success'
+              <?php $badgeColor = ($isTrashed) ? (($isSuspended) ? 'badge-warning' : 'badge-danger') : 'badge-success'; ?>
 
               <td class="align-middle px-2 text-uppercase {{ !$C_group ? 'd-none d-sm-table-cell col-status' : '' }}">
                 <span class="badge {{ $badgeColor }} badge-pill d-block">
