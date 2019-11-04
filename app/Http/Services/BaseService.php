@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Services;
 
 use App\helpers\LoggerHelper;
 use App\helpers\MainHelper;

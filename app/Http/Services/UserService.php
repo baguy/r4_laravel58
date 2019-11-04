@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Services;
 
-use App\Http\Controllers\BaseService;
+use App\Http\Services\BaseService;
 use App\User;
 use App\Http\Controllers\AuthController;
 use App\helpers\MainHelper;

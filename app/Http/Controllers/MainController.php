@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Main;
 use App\User;
-use App\Http\Controllers\MainService;
+use App\Http\Services\MainService;
 
 class MainController extends BaseController {
 

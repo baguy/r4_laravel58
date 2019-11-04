@@ -28,6 +28,9 @@ Route::get('new', ['as' => 'new', 'uses' => 'AuthController@newUser']);
 
 Route::post('newStore', ['as' => 'auth.newStore', 'uses' => 'AuthController@newStore']);
 
+Route::post('newQuery', ['as' => 'atprofile.newQuery', 'uses' => 'ProfileController@newQuery']);
+Route::resource('atprofile', 'ProfileController');
+
 // Authentication
 Route::post('login', 'AuthController@postLogin');
 Route::get('password/remind', 'AuthController@getRemind');

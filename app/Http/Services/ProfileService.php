@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Services;
 
-use App\Http\Controllers\BaseService;
+use App\Http\Services\BaseService;
 use App\User;
-use App\Comentario;
-use App\ComentarioAtualizacao;
+use App\Profile;
+use App\profileAtualizacao;
 use App\Http\AuthController;
 use App\helpers\MainHelper;
 use DB;
 use Auth;
 
-class ComentarioService extends BaseService {
+class ProfileService extends BaseService {
 
-	protected $comentario;
+	protected $profile;
 
-  public function __construct(Comentario $comentario) {
+  public function __construct(Profile $profile) {
 
-    $this->comentario = $comentario;
+    $this->profile = $profile;
   }
 
   public function selects($is_filter = false) {
@@ -30,7 +30,7 @@ class ComentarioService extends BaseService {
 
     try {
 
-      $comment = new Comentario($input);
+      $comment = new Profile($input);
 
       $comment->user()->associate(Auth::user())->save();
 
@@ -52,17 +52,17 @@ class ComentarioService extends BaseService {
 
     try {
 
-      $comentario = $this->comentario->find($id);
+      $profile = $this->profile->find($id);
 
-			$old_comment = new ComentarioAtualizacao();
+			$old_comment = new profileAtualizacao();
 
-			$old_comment->text = $comentario->text;
+			$old_comment->text = $profile->text;
 
-			$old_comment->comentario()->associate($comentario)->save();
+			$old_comment->profile()->associate($profile)->save();
 
-      $comentario->fill($input);
+      $profile->fill($input);
 
-      $comentario->update();
+      $profile->update();
 
       DB::commit();
 

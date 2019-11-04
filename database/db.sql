@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema r4_php_db
+-- Schema influencemeter_db
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `r4_php_db` ;
+DROP SCHEMA IF EXISTS `influencemeter_db` ;
 
 -- -----------------------------------------------------
--- Schema r4_php_db
+-- Schema influencemeter_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `r4_php_db` DEFAULT CHARACTER SET utf8 ;
-USE `r4_php_db` ;
+CREATE SCHEMA IF NOT EXISTS `influencemeter_db` DEFAULT CHARACTER SET utf8 ;
+USE `influencemeter_db` ;
 
 -- -----------------------------------------------------
--- Table `r4_php_db`.`users`
+-- Table `influencemeter_db`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `r4_php_db`.`users` ;
+DROP TABLE IF EXISTS `influencemeter_db`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `r4_php_db`.`users` (
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`users` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(200) NOT NULL,
   `email` VARCHAR(150) NOT NULL,
@@ -39,11 +39,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `r4_php_db`.`throttles`
+-- Table `influencemeter_db`.`throttles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `r4_php_db`.`throttles` ;
+DROP TABLE IF EXISTS `influencemeter_db`.`throttles` ;
 
-CREATE TABLE IF NOT EXISTS `r4_php_db`.`throttles` (
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`throttles` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip_address` VARCHAR(45) NULL,
   `is_default_password` TINYINT(4) NOT NULL,
@@ -56,18 +56,18 @@ CREATE TABLE IF NOT EXISTS `r4_php_db`.`throttles` (
   INDEX `fk_throttles_user_idx` (`user_id` ASC),
   CONSTRAINT `fk_throttles_users`
     FOREIGN KEY (`user_id`)
-    REFERENCES `r4_php_db`.`users` (`id`)
+    REFERENCES `influencemeter_db`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `r4_php_db`.`roles`
+-- Table `influencemeter_db`.`roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `r4_php_db`.`roles` ;
+DROP TABLE IF EXISTS `influencemeter_db`.`roles` ;
 
-CREATE TABLE IF NOT EXISTS `r4_php_db`.`roles` (
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`roles` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(75) NULL,
@@ -76,11 +76,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `r4_php_db`.`users_roles`
+-- Table `influencemeter_db`.`users_roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `r4_php_db`.`users_roles` ;
+DROP TABLE IF EXISTS `influencemeter_db`.`users_roles` ;
 
-CREATE TABLE IF NOT EXISTS `r4_php_db`.`users_roles` (
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`users_roles` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   `role_id` INT UNSIGNED NOT NULL,
@@ -89,65 +89,115 @@ CREATE TABLE IF NOT EXISTS `r4_php_db`.`users_roles` (
   INDEX `fk_users_has_roles_users1_idx` (`user_id` ASC),
   CONSTRAINT `fk_users_has_roles_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `r4_php_db`.`users` (`id`)
+    REFERENCES `influencemeter_db`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_roles_roles1`
     FOREIGN KEY (`role_id`)
-    REFERENCES `r4_php_db`.`roles` (`id`)
+    REFERENCES `influencemeter_db`.`roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `r4_php_db`.`comments`
+-- Table `influencemeter_db`.`profiles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `r4_php_db`.`comments` ;
+DROP TABLE IF EXISTS `influencemeter_db`.`profiles` ;
 
-CREATE TABLE IF NOT EXISTS `r4_php_db`.`comments` (
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`profiles` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `text` VARCHAR(400) NOT NULL,
+  `screen_name` VARCHAR(30) NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `verified` TINYINT(2) NOT NULL,
+  `twitter_id` INT unsigned,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
   `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_comments_users1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_comments_users1`
+  INDEX `fk_profiles_user_idx` (`user_id` ASC),
+  CONSTRAINT `fk_profiles_users`
     FOREIGN KEY (`user_id`)
-    REFERENCES `r4_php_db`.`users` (`id`)
+    REFERENCES `influencemeter_db`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `r4_php_db`.`comments_updates`
+-- Table `influencemeter_db`.`tweets`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `r4_php_db`.`comments_updates` ;
+DROP TABLE IF EXISTS `influencemeter_db`.`tweets` ;
 
-CREATE TABLE IF NOT EXISTS `r4_php_db`.`comments_updates` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `comment_id` INT UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`tweets` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `profile_id` INT unsigned NOT NULL,
   `text` VARCHAR(400) NOT NULL,
+  `followers_count` INT unsigned,
+  `friends_count` INT unsigned,
+  `favourites_count` INT unsigned,
+  `retweet_count` INT unsigned,
+  `retweet_status` TINYINT(2) unsigned,
+  `created_at` TIMESTAMP NOT NULL,
+  `updated_at` TIMESTAMP NULL,
+  `deleted_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_tweets_profiles1_idx` (`profile_id` ASC),
+  CONSTRAINT `fk_tweets_profiles1`
+    FOREIGN KEY (`profile_id`)
+    REFERENCES `influencemeter_db`.`profiles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `influencemeter_db`.`types_profile`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `influencemeter_db`.`types_profile` ;
+
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`types_profile` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(220) NULL,
+  `recomendarion` VARCHAR (500) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `influencemeter_db`.`type_profile_status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `influencemeter_db`.`type_profile_status` ;
+
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`type_profile_status` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `profile_id` INT UNSIGNED NOT NULL,
+  `type_profile_id` INT UNSIGNED NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_comments_updates_comment_idx` (`comment_id` ASC),
-  CONSTRAINT `fk_comments_updates_comments`
-    FOREIGN KEY (`comment_id`)
-    REFERENCES `r4_php_db`.`comments` (`id`)
+  INDEX `fk_type_profile_status_type_profile1_idx` (`type_profile_id` ASC),
+  INDEX `fk_type_profile_status_profile1_idx` (`profile_id` ASC),
+  CONSTRAINT `fk_type_profile_status_profile1`
+    FOREIGN KEY (`profile_id`)
+    REFERENCES `influencemeter_db`.`profiles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_type_profile_status_type_profile1`
+    FOREIGN KEY (`type_profile_id`)
+    REFERENCES `influencemeter_db`.`types_profile` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `r4_php_db`.`logs`
+-- Table `influencemeter_db`.`logs`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `r4_php_db`.`loggers` ;
+DROP TABLE IF EXISTS `influencemeter_db`.`loggers` ;
 
-CREATE TABLE IF NOT EXISTS `r4_php_db`.`loggers` (
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`loggers` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `action` VARCHAR(45) NULL,
   `message` VARCHAR(200) NULL,
@@ -156,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `r4_php_db`.`loggers` (
   INDEX `fk_loggers_user_idx` (`user_id` ASC),
   CONSTRAINT `fk_loggers_users`
     FOREIGN KEY (`user_id`)
-    REFERENCES `r4_php_db`.`users` (`id`)
+    REFERENCES `influencemeter_db`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -183,3 +233,8 @@ INSERT INTO `throttles` VALUES
 
 INSERT INTO `users_roles` (`id`, `user_id`, `role_id`) VALUES
 (1,1,1),(2,1,2),(3,1,3);
+
+INSERT INTO `types_profile` VALUES
+(1, 'INFLUENCIADOR', 'Este perfil é comunicador e tem a capacidade de influenciar muitos outros usuários.', null),
+(2, 'FUTRIQUEIRO', 'Este perfil prefere responder e retweetar do que postar conteúdo próprio.', null),
+(3, 'CASUAL', 'Este perfil posta casualmente para uma audiência moderada ou pequena.', null);

@@ -8,14 +8,14 @@ return [
   |--------------------------------------------------------------------------
   */
 
-  'config.name'        => 'Solutions',
-  'config.nickname'    => 'Novo Produto',
-  'config.company'     => 'Solutions',
-  'config.department'  => 'Solutions',
+  'config.name'        => 'Influenciômetro',
+  'config.nickname'    => '',
+  'config.company'     => 'Mayra Bueno',
+  'config.department'  => 'Mayra Bueno',
   'config.dev'         => 'Mayra Bueno',
   'config.state'       => 'Estado de São Paulo',
-  'config.site-domain' => 'Solutions',
-  'config.version'     => '1.0.0',
+  'config.site-domain' => 'Mayra Bueno',
+  'config.version'     => '1.8.12',
 
   'action.create' => ':icon Novo Item',
   'action.edit'   => ':icon Alterar Item',
@@ -45,7 +45,7 @@ return [
   'btn.expand'   => 'Expandir',
   'btn.filter'   => 'Filtrar',
   'btn.group'    => 'Agrupar',
-  'btn.login'    => 'Login',
+  'btn.login'    => 'Login/Cadastro',
   'btn.print'    => 'Imprimir',
   'btn.redefine' => 'Redefinir',
   'btn.remove'   => 'Remover',

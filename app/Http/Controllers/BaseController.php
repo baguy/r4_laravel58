@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Logger;
 use App\User;
 use App\validators\UniqueValidator;
-use App\Http\Controllers\BaseService;
+use App\Http\Services\BaseService;
 use View;
 use Input;
 

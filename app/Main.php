@@ -1,8 +1,9 @@
 <?php
 
 namespace App;
-use App\Comentario;
 
-class Main extends Comentario {
+use Illuminate\Database\Eloquent\Model;
+
+class Main extends Model {
 
 }

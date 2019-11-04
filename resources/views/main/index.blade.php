@@ -36,18 +36,18 @@
 
   <div class="card-header">
 
-    <div class="row">
+    {{-- <div class="row">
       <img class="" src="assets/img/icone.png" alt="logo" style="height:8%; width:8%; background-color:#7a2100">
       <h1 style='margin-left:10px;margin-top:30px'>{{ trans('home.title.index') }}</h1>
-    </div>
+    </div> --}}
 
   </div>
 
   <div class="card-body">
 
-    @include('main/_produto')
+    @include('main/_info')
 
-    @if(Auth::user())
+    {{-- @if(Auth::user())
       <p>
         <span class="float-right">
           <a
@@ -58,12 +58,14 @@
           </a>
         </span>
       </p>
-    @endif
+    @endif --}}
 
     <br>
 
+    @include('main/_form')
+
     <center>
-      <div class="col-8" id="mainDataTableContainer" data-datatable-error="{{ trans('application.msg.error.datatable') }}"></div>
+      {{-- <div class="col-8" id="mainDataTableContainer" data-datatable-error="{{ trans('application.msg.error.datatable') }}"></div> --}}
     </center>
 
   </div>

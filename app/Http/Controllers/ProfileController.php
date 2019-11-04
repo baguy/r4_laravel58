@@ -2,29 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Comentario;
-use App\Http\Controllers\ComentarioService;
+use App\Profile;
+use App\Http\Services\ComentarioService;
 use App\Http\Controllers\BaseController;
 use App\helpers\LoggingHelper;
 use Input;
 use Redirect;
 
-class ComentarioController extends BaseController {
+class ProfileController extends BaseController {
 
-	protected $comentario;
+	protected $profile;
 
 	protected $service;
 
 	protected $selects;
 
-	public function __construct(Comentario $comentario, ComentarioService $service) {
+	public function __construct(Profile $profile, ProfileService $service) {
 
 		parent::__construct($service);
 
-		$this->comentario = $comentario;
+		$this->profile = $profile;
 		$this->service = $service;
 
 		$this->selects = $this->service->selects();
+
+	}
+
+	public function newQuery()
+	{
 
 	}
 
