@@ -8,19 +8,19 @@
 
       @include('templates/parts/_messages')
 
-      {{ Form::open(array('url' => 'atprofile.newQuery')) }}
+      {{ Form::open(array('url' => 'twitter.newQuery')) }}
 
 
-        <div class="input-group mb-3 {{ ($errors->has('password')) ? 'has-error' : '' }}">
+        <div class="input-group mb-3 {{ ($errors->has('username')) ? 'has-error' : '' }}">
 
           {{
             Form::input(
-              'password',
-              'password',
-              Input::old('password'),
+              'username',
+              'username',
+              Input::old('username'),
               array(
                 'class'       => 'form-control',
-                'placeholder' => trans('users.lbl.password')
+                'placeholder' => trans('main.lbl.username')
               )
             )
           }}
@@ -31,9 +31,9 @@
             </span>
           </div>
 
-          @if ($errors->has('password'))
+          @if ($errors->has('username'))
           <div class="invalid-feedback">
-            {{ $errors->first('password') }}
+            {{ $errors->first('username') }}
           </div>
           @endif
         </div>

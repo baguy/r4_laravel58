@@ -13,7 +13,9 @@ return array(
 
   'btn.send'          => 'Enviar',
 
+  'lbl.username'      => '@username',
+
   'info.exp'          => 'Receba informações sobre o desempenho de um perfil Twitter. Para informações mais completas, cadastre-se.',
-  'info.helper'       => 'Insira o nome de usuário @ do perfil twitter',
+  'info.helper'       => 'Insira o nome de usuário do perfil twitter',
 
 );

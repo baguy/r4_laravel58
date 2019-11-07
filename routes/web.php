@@ -26,10 +26,14 @@ Route::get('login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
 
 Route::get('new', ['as' => 'new', 'uses' => 'AuthController@newUser']);
 
-Route::post('newStore', ['as' => 'auth.newStore', 'uses' => 'AuthController@newStore']);
+// Twitter API
+Route::get('twitterUserTimeLine', 'TwitterController@twitterUserTimeLine');
+Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
+Route::post('newQuery', ['as' => 'twitter.newQuery', 'uses' => 'TwitterController@newQuery']);
 
-Route::post('newQuery', ['as' => 'atprofile.newQuery', 'uses' => 'ProfileController@newQuery']);
 Route::resource('atprofile', 'ProfileController');
+
+Route::post('newStore', ['as' => 'auth.newStore', 'uses' => 'AuthController@newStore']);
 
 // Authentication
 Route::post('login', 'AuthController@postLogin');
@@ -48,6 +52,8 @@ Route::resource('comentarios', 'ComentarioController');
 Route::get('errors/js', function() {
 	return view('errors.js');
 });
+
+
 
 // Authentication Filter Verification
 Route::group(array('before' => 'auth'), function() {
