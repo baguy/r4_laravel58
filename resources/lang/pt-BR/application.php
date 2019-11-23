@@ -45,7 +45,7 @@ return [
   'btn.expand'   => 'Expandir',
   'btn.filter'   => 'Filtrar',
   'btn.group'    => 'Agrupar',
-  'btn.login'    => 'Login/Cadastro',
+  'btn.login'    => 'Login',
   'btn.print'    => 'Imprimir',
   'btn.redefine' => 'Redefinir',
   'btn.remove'   => 'Remover',
@@ -109,6 +109,7 @@ return [
   'lbl.upload'       => 'Selecione arquivo para upload',
   'lbl.deleted'      => 'Excluído',
   'lbl.edit-comment' => 'Editar comentário',
+  'lbl.login-register' => 'Login/Cadastro',
 
   'misc.click-to-copy'       => 'Clique para Copiar!',
   'misc.institutional-email' => 'Email institucional',

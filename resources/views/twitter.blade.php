@@ -4,7 +4,7 @@
 
 <head>
 
-	<title>Laravel 5 - Twitter API</title>
+	<title>{{trans('main.title.title')}}</title>
 
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -14,9 +14,6 @@
 
 
 <div class="container">
-
-    <h2>Laravel 5 - Twitter API</h2>
-
 
     <form method="POST" action="{{ route('post.tweet') }}" enctype="multipart/form-data">
 
@@ -28,7 +25,7 @@
 
             <div class="alert alert-danger">
 
-                <strong>Whoops!</strong> There were some problems with your input.
+                <strong>Opa!</strong> {{trans('main.msg.problem')}}
 
                 <br/>
 
@@ -49,7 +46,7 @@
 
         <div class="form-group">
 
-            <label>Add Tweet Text:</label>
+            <label>{{trans('main.add.text')}}</label>
 
             <textarea class="form-control" name="tweet"></textarea>
 
@@ -57,7 +54,7 @@
 
         <div class="form-group">
 
-            <label>Add Multiple Images:</label>
+            <label>{{trans('main.add.image')}}</label>
 
             <input type="file" name="images[]" multiple class="form-control">
 
@@ -65,7 +62,7 @@
 
         <div class="form-group">
 
-            <button class="btn btn-success">Add New Tweet</button>
+            <button class="btn btn-success">{{trans('main.btn.add')}}</button>
 
         </div>
 
@@ -78,17 +75,17 @@
 
             <tr>
 
-                <th width="50px">No</th>
+							<th width="50px">{{trans('main.th.1')}}</th>
 
-                <th>Twitter Id</th>
+							<th>{{trans('main.th.2')}}</th>
 
-                <th>Message</th>
+							<th>{{trans('main.th.3')}}</th>
 
-                <th>Images</th>
+							<th>{{trans('main.th.4')}}</th>
 
-                <th>Favorite</th>
+							<th>{{trans('main.th.5')}}</th>
 
-                <th>Retweet</th>
+							<th>{{trans('main.th.6')}}</th>
 
             </tr>
 
@@ -134,7 +131,7 @@
 
                 <tr>
 
-                    <td colspan="6">There are no data.</td>
+                    <td colspan="6">{{trans('main.msg.no')}}</td>
 
                 </tr>
 

@@ -163,16 +163,4 @@
 
   </div>
 
-  @if(!$isTrashed)
-
-    @include('produtos/_modal-delete')
-
-  @endif
-
-  @if($isTrashed)
-
-    @include('produtos/_modal-restore')
-
-  @endif
-
 @stop

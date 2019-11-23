@@ -9,7 +9,7 @@ use App\Logger;
 use Input;
 use Auth;
 use Redirect;
-use App\Http\Services\UseService;
+use App\Http\Services\UserService;
 use App\helpers\LoggingHelper;
 use App\helpers\LoggerHelper;
 use App\validators\UserValidator;

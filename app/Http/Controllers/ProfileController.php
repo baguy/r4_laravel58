@@ -28,12 +28,6 @@ class ProfileController extends BaseController {
 
 	}
 
-	public function newQuery()
-	{
-
-
-	}
-
 	/**
 	 * Display a listing of the resource.
 	 *

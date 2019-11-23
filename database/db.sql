@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `influencemeter_db`.`tweets` (
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
+  `badalado` INT(2),
   PRIMARY KEY (`id`),
   INDEX `fk_tweets_profiles1_idx` (`profile_id` ASC),
   CONSTRAINT `fk_tweets_profiles1`

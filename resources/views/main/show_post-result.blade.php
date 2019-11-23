@@ -26,7 +26,7 @@
     @else
       <div class="col-1">
         <span class="float-right mr-2">
-          <a href="/login/">{{trans('application.lbl.login-register')}}</a>
+          <a href="/login/">{{trans('application.btn.login')}}</a>
         </span>
       </div>
 
@@ -40,11 +40,9 @@
 
   <div class="card-body">
 
-    @include('main/_info')
-
     <br>
 
-    @include('main/_form')
+    @include('main/_twitter_post-result')
 
   </div>
 
@@ -73,30 +71,6 @@
   <!-- ()_DataTable - Initialize -->
   <script type="text/javascript">
 
-
-    $(function() {
-
-      // ()_SearchPanel - Show / Hide
-      var searchPanel = new AdminTR.SearchPanel('MAINS');
-
-      searchPanel.initialize();
-
-      // ()_Datatable - onLoad
-      var dataTable = new AdminTR.DataTable('main', $('#mainDataTableContainer'), false, false);
-
-      dataTable.initialize();
-
-      // ()_FilterForm - Disable / Enable filter form buttons and Reset DataTable on submit and on clean
-      var filterForm = new AdminTR.FilterForm(
-                                    'main',
-                                    $('#mainDataTableContainer'),
-                                    $('#mainFilterForm'),
-                                    $('#mainFilterSubmit'),
-                                    $("#mainFilterClean")
-                                  );
-
-      filterForm.initialize();
-    });
 
   </script>
 

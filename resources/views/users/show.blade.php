@@ -161,12 +161,6 @@
 
           <hr>
 
-          {{-- <strong class="d-block"><i class="fas fa-layer-group fa-fw mr-1"></i> {{ trans('users.lbl.roles') }}</strong>
-
-          <span class="badge badge-secondary">
-            {{ $user->minRole()->name }}
-          </span> --}}
-
         </div>
 
       </div>
@@ -182,17 +176,22 @@
         <div class="card-header p-2">
           <ul class="nav nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="#activity" data-toggle="tab">
+              <a class="nav-link active" href="#query" data-toggle="tab">
+                {{ trans('users.tab.query') }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#activity" data-toggle="tab">
                 {{ trans('users.tab.activity') }}
               </a>
             </li>
-          @if ( Auth::user()->hasRole('ADMIN') )
+          {{-- @if ( Auth::user()->hasRole('ADMIN') )
             <li class="nav-item">
               <a class="nav-link" href="#logs" data-toggle="tab">
                 {{ trans('users.tab.logs') }}
               </a>
             </li>
-          @endif
+          @endif --}}
           </ul>
         </div>
 
@@ -203,7 +202,81 @@
           <div class="tab-content">
 
             <!-- Tab Pane -->
-            <div class="active tab-pane" id="activity">
+            <div class="active tab-pane" id="query">
+
+              <!-- Post -->
+              <div class="post">
+
+                {{
+                  Form::open(
+                    array(
+                      'id' => 'twitterForm',
+                      'route' => 'twitter.postQuery',
+                      'data-validation-errors' => trans('application.msg.error.validation-errors')
+                    )
+                  )
+                }}
+
+                  <div class="row">
+
+                    <div class="col-3">
+                    </div>
+
+                    <div class='col-6'>
+
+                      <div class="input-group mb-3 {{ ($errors->has('username')) ? 'has-error' : '' }}">
+
+                        {{
+                          Form::input(
+                            'username',
+                            'username',
+                            Input::old('username'),
+                            array(
+                              'class'       => 'form-control',
+                              'placeholder' => trans('main.lbl.username')
+                            )
+                          )
+                        }}
+
+                        <div class="input-group-append">
+                          <span class="input-group-text rounded-right">
+                            <i class="fab fa-twitter fa-fw"></i>
+                          </span>
+                        </div>
+
+                        @if ($errors->has('username'))
+                        <div class="invalid-feedback">
+                          {{ $errors->first('username') }}
+                        </div>
+                        @endif
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-4">
+                    </div>
+
+                    <div class="col-4">
+                      {{ Form::submit(trans('main.btn.send'), array('class' => 'btn btn-primary btn-block btn-flat')) }}
+                    </div>
+
+                  </div>
+
+                {{ Form::close() }}
+
+
+              </div>
+              <!-- /.Post -->
+
+            </div>
+            <!-- /.Tab Pane -->
+
+            <!-- Tab Pane -->
+            <div class="tab-pane" id="activity">
 
               <!-- Post -->
               <div class="post">

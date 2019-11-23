@@ -84,6 +84,7 @@ return array(
 
   'tab.activity' => 'Atividades',
   'tab.logs'     => 'Últimos Logs',
+  'tab.query'    => 'Consulta',
 
   'ask.default-password-has-been-changed' => 'Senha padrão foi alterada?',
 

@@ -8,7 +8,15 @@
 
       @include('templates/parts/_messages')
 
-      {{ Form::open(array('url' => 'twitter.newQuery')) }}
+      {{
+        Form::open(
+          array(
+            'id' => 'twitterForm',
+            'route' => 'twitter.newQuery',
+            'data-validation-errors' => trans('application.msg.error.validation-errors')
+          )
+        )
+      }}
 
 
         <div class="input-group mb-3 {{ ($errors->has('username')) ? 'has-error' : '' }}">

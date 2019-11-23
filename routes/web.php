@@ -30,6 +30,7 @@ Route::get('new', ['as' => 'new', 'uses' => 'AuthController@newUser']);
 Route::get('twitterUserTimeLine', 'TwitterController@twitterUserTimeLine');
 Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
 Route::post('newQuery', ['as' => 'twitter.newQuery', 'uses' => 'TwitterController@newQuery']);
+Route::post('postquery', ['as' => 'twitter.postQuery', 'uses' => 'TwitterController@postQuery']);
 
 Route::resource('atprofile', 'ProfileController');
 
