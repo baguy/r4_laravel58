@@ -2,15 +2,15 @@
 
 namespace App\builders;
 
-use App\Comentario;
+use App\Tweet;
 
-	class ComentarioBuilder {
+	class TweetBuilder {
 
 		private $instance;
 
 		public function __construct() {
 
-			$this->instance = new Comentario();
+			$this->instance = new Tweet();
 		}
 
 		public function getModel() {

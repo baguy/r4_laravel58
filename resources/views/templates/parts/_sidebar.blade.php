@@ -68,6 +68,8 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
+              {{-- @if(Auth::user()->hasRole('ADMIN'))
               <li class="nav-item">
                 <a href="{{ route('users.index') }}" class="nav-link {{ (Request::is('users') ? 'active' : '') }}">
                   <i class="far fa-circle nav-icon {{ (!Request::is('users') ? 'text-info' : '') }}"></i>
@@ -75,14 +77,14 @@
                 </a>
               </li>
 
-              @if(Auth::user()->hasRole('ADMIN'))
+
                 <li class="nav-item">
                   <a href="{{ route('users.create') }}" class="nav-link {{ (Request::is('users/create') ? 'active' : '') }}">
                     <i class="far fa-circle nav-icon {{ (!Request::is('users/create') ? 'text-success' : '') }}"></i>
                     <p>{{ trans('menus.sidebar.action.add') }}</p>
                   </a>
                 </li>
-              @endif
+              @endif --}}
 
             </ul>
           </li>

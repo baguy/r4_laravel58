@@ -15,7 +15,7 @@ DROP SCHEMA IF EXISTS `influencemeter_db` ;
 -- -----------------------------------------------------
 -- Schema influencemeter_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `influencemeter_db` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `influencemeter_db` DEFAULT CHARACTER SET utf8mb4 ;
 USE `influencemeter_db` ;
 
 -- -----------------------------------------------------
@@ -107,14 +107,16 @@ DROP TABLE IF EXISTS `influencemeter_db`.`profiles` ;
 
 CREATE TABLE IF NOT EXISTS `influencemeter_db`.`profiles` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `twitter_id` VARCHAR(75) NOT NULL,
   `screen_name` VARCHAR(30) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
+  `followers_count` INT unsigned,
+  `friends_count` INT unsigned,
   `verified` TINYINT(2) NOT NULL,
-  `twitter_id` INT unsigned,
+  `user_id` INT UNSIGNED NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
-  `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_profiles_user_idx` (`user_id` ASC),
   CONSTRAINT `fk_profiles_users`
@@ -133,19 +135,51 @@ DROP TABLE IF EXISTS `influencemeter_db`.`tweets` ;
 CREATE TABLE IF NOT EXISTS `influencemeter_db`.`tweets` (
   `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `profile_id` INT unsigned NOT NULL,
+  `id_str` VARCHAR(30) NOT NULL,
   `text` VARCHAR(400) NOT NULL,
   `followers_count` INT unsigned,
   `friends_count` INT unsigned,
-  `favourites_count` INT unsigned,
+  `favorite_count` INT unsigned,
   `retweet_count` INT unsigned,
   `retweet_status` TINYINT(2) unsigned,
+  `posted_at` VARCHAR(75) NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
   `badalado` INT(2),
+  `url` VARCHAR(50),
   PRIMARY KEY (`id`),
   INDEX `fk_tweets_profiles1_idx` (`profile_id` ASC),
   CONSTRAINT `fk_tweets_profiles1`
+    FOREIGN KEY (`profile_id`)
+    REFERENCES `influencemeter_db`.`profiles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `influencemeter_db`.`hashtags`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `influencemeter_db`.`hashtags` ;
+
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`hashtags` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `profile_id` INT unsigned NOT NULL,
+  `tweet_id` INT unsigned NOT NULL,
+  `hashtag` VARCHAR(200) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
+  `updated_at` TIMESTAMP NULL,
+  `deleted_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_hashtags_profiles1_idx` (`profile_id` ASC),
+  INDEX `fk_hashtags_tweets1_idx` (`tweet_id` ASC),
+  CONSTRAINT `fk_hashtags_tweets1_idx`
+    FOREIGN KEY (`tweet_id`)
+    REFERENCES `influencemeter_db`.`tweets` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hashtags_profiles1_idx`
     FOREIGN KEY (`profile_id`)
     REFERENCES `influencemeter_db`.`profiles` (`id`)
     ON DELETE NO ACTION

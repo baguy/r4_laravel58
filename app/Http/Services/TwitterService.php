@@ -2,16 +2,18 @@
 
 namespace App\Http\Services;
 
-use App\Http\Services\BaseService;
+use DB;
+use Auth;
 use App\User;
 use App\Tweet;
+use App\Profile;
+use App\Hashtag;
 use App\profileAtualizacao;
 use App\Http\AuthController;
 use App\helpers\MainHelper;
-use DB;
-use Auth;
+use App\Http\Services\BaseService;
 
-class ProfileService extends BaseService {
+class TwitterService extends BaseService {
 
 	protected $profile;
 
@@ -24,38 +26,81 @@ class ProfileService extends BaseService {
 
   }
 
-  public static function store($t,$v0) {
+  public static function store($timeline,$perfil,$verified,$v0,$username) {
 
   	DB::beginTransaction();
 
     try {
 
-			$profile 							= new Profile($t[0]);
+			$profile        = Profile::where('screen_name','=',$username)->first();
 
-			$profile->screen_name = $t[0]['user']->screen_name;
-			$profile->name 				= $t[0]['user']->name;
-			$profile->verified 		= ($t[0]['user']['verified']->verified==true)?1:0;
-			$profile->twitter_id 	= $t[0]['user']->id_str;
+			if(!isset($at)){
 
-			$profile->user()->associate(Auth::user())->save();
+				$profile 							= new Profile($perfil);
+
+				$profile->screen_name 		= $perfil['screen_name'];
+				$profile->name 						= $perfil['name'];
+				$profile->verified 				= ($verified==true)?1:0;
+				$profile->twitter_id 			= $perfil['twitter_id'];
+				$profile->followers_count = $perfil['followers_count'];
+				$profile->friends_count   = $perfil['friends_count'];
+
+				$profile->user()->associate(Auth::user())->save();
+
+			}else{
+				$at->verified 				= ($verified==true)?1:0;
+				$at->followers_count = $perfil['followers_count'];
+				$at->friends_count   = $perfil['friends_count'];
+
+				$at->update();
+			}
 
 			foreach($timeline as $key => $value){
-      	$tweet = new Tweet($value);
 
-				$tweet->profile_id = $profile->id;
-				$tweet->text = $value['text'];
-				$tweet->followers_count = $value['user']->followers_count;
-				$tweet->friends_count = $value['user']->friends_count;
-				$tweet->favorites_count = $value->favorite_count;
-				$tweet->retweet_count = $value->retweet_count;
-				$tweet->retweet_status = isset($value->retweeted_status)?1:0;
+				$t =	Tweet::where('id_str','=',$value['id_str'])->get();
 
-				if($value->id_str == $v0){
-					$tweet->badalado = 1;
-				}
+				if(!isset($t['id_str'])){
 
-      	$tweet->user()->associate(Auth::user())->save();
-			}
+					$url = $value['entities']['urls'][0]['url'];
+
+	      	$tweet = new Tweet($value);
+
+					$tweet->text 						= $value['text'];
+					$tweet->followers_count = $value['user']['followers_count'];
+					$tweet->friends_count 	= $value['user']['friends_count'];
+					$tweet->favorite_count  = $value['favorite_count'];
+					$tweet->retweet_count 	= $value['retweet_count'];
+					$tweet->posted_at				= $value['created_at'];
+					$tweet->retweet_status  = isset($value['retweeted_status'])?1:0;
+					$tweet->id_str					= $value['id_str'];
+					foreach($value['entities']['urls'] as $keyurl => $valueurl){
+						$tweet->url 					= $url;
+					}
+
+					if($value['id_str'] == $v0){
+						$tweet->badalado = 1;
+					}
+
+	      	$tweet->profile()->associate($profile)->save();
+
+					if(!empty($value['entities']['hashtags'])){
+
+						foreach($value['entities']['hashtags'] as $v){
+
+								$hashtag = new Hashtag();
+
+								$hashtag->hashtag  = $v['text'];
+								$hashtag->tweet_id = $tweet->id;
+
+								$hashtag->profile()->associate($profile)->save();
+
+						}
+
+					}
+
+				} // .if isset
+
+			} //.foreach
 
       DB::commit();
 

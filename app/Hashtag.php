@@ -7,23 +7,21 @@ use App\Profile;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Tweet extends Model {
+class Hashtag extends Model {
 
   use SoftDeletes;
 
-  	protected $table    = 'tweets';
+  	protected $table    = 'hashtags';
     protected $fillable = [
-      'profile_id','text','followers_count','url',
-      'friends_count','favourites_count','id_str',
-      'retweet_count','retweet_status','posted_at'
+      'profile_id','tweet_id','hashtag'
     ];
 
     public function profile(){
       return $this->belongsTo('App\Profile');
     }
 
-    public function user(){
-      return $this->belongsTo('App\User');
+    public function tweet(){
+      return $this->belongsTo('App\Tweet');
     }
 
 }

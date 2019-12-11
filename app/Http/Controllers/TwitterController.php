@@ -6,9 +6,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\TwitterService;
+use App\Profile;
+use App\Tweet;
 use Twitter;
 use File;
 use Input;
+use DB;
 
 
 class TwitterController extends Controller
@@ -62,13 +65,16 @@ class TwitterController extends Controller
     $input = Input::all();
     $username = $input['username'];
 
+    // Quantidade de tweets analisados
     $quantidade = 20;
 
+    // Requisição da timeline do usuário pesquisado
     $timeline = Twitter::getUserTimeline(['screen_name' => $input['username'], 'count' => $quantidade, 'format' => 'array']);
+    // Item "friends" do usuário pesquisado
     $friends = Twitter::getFriends([ 'screen_name' => $input['username'], 'format' => 'array' ]);
 
-    $contagem = 0; $retweet = 0; $favoritos = 0; $media = [];
-    $verified = false; $soma = 0; $vetor_soma = [];
+    $contagem = 0; $retweet  = 0; $favoritos  = 0; $media   = [];
+    $verified = false; $soma = 0; $vetor_soma = []; $perfil = [];
     foreach($timeline as $key => $value){
       $contagem  += 1;
       $retweet   += $value['retweet_count'];
@@ -77,6 +83,12 @@ class TwitterController extends Controller
       $soma = $value['retweet_count'] + $value['favorite_count'];
       $vetor_id[$key]         = $value['id_str'];
       $vetor_soma[$key]       = $soma;
+
+      $perfil['screen_name'] = $value['user']['screen_name'];
+      $perfil['name']        = $value['user']['name'];
+      $perfil['twitter_id']  = $value['user']['id_str'];
+      $perfil['followers_count'] = $value['user']['followers_count'];
+      $perfil['friends_count']   = $value['user']['friends_count'];
 
       if($value['user']['verified'] == true){
         $verified = true;
@@ -94,15 +106,18 @@ class TwitterController extends Controller
 
     $v0 = $v[0]; $v1 = $v[1]; $v2 = $v[2];
     $v3 = $v[3]; $v4 = $v[4];
+    
+    TwitterService::store($timeline,$perfil,$verified,$v0,$username);
 
-    TwitterService::store($timeline,$v0);
+    $at        = Profile::where('screen_name','=',$username)->first();
+    $badalados = Tweet::where('profile_id','=',$at->id)->where('badalado','=',1)->get();
 
     // Rate-limit (Standard API) — 15m — https://developer.twitter.com/en/docs/basics/rate-limits
 
     return view('main.show_post-result',compact(
                                             'timeline','friends','media','username',
                                             'verified','v0','v1','v2','v3','v4',
-                                            'quantidade'
+                                            'quantidade','badalados'
                                           ));
 
   }

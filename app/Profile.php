@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App;
 
 use App\User;
 use App\Tweet;
@@ -14,8 +14,8 @@ class Profile extends Model {
 
   	protected $table    = 'profiles';
     protected $fillable = [
-      'screen_name', 'user_id', 'name',
-      'verified', 'twitter_id'
+      'screen_name', 'user_id', 'name', 'friends_count',
+      'verified', 'twitter_id', 'followers_count'
     ];
 
     public function user(){
