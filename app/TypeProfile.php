@@ -11,7 +11,7 @@ class TypeProfile extends Model {
 
   	protected $table    = 'types_profile';
     protected $fillable = [
-      'name','description','recomendarion'
+      'name','description','recomendation','requisites'
     ];
 
     public function typeProfileStatus(){

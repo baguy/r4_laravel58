@@ -26,7 +26,7 @@ class TwitterService extends BaseService {
 
   }
 
-  public static function store($timeline,$perfil,$verified,$v0,$username) {
+  public static function store($timeline,$perfil,$verified,$v0,$username,$engajamento) {
 
   	DB::beginTransaction();
 
@@ -34,7 +34,7 @@ class TwitterService extends BaseService {
 
 			$profile        = Profile::where('screen_name','=',$username)->first();
 
-			if(!isset($at)){
+			if(!isset($profile)){
 
 				$profile 							= new Profile($perfil);
 
@@ -44,38 +44,37 @@ class TwitterService extends BaseService {
 				$profile->twitter_id 			= $perfil['twitter_id'];
 				$profile->followers_count = $perfil['followers_count'];
 				$profile->friends_count   = $perfil['friends_count'];
+				$profile->engagement			= $engajamento;
 
 				$profile->user()->associate(Auth::user())->save();
 
 			}else{
-				$at->verified 				= ($verified==true)?1:0;
-				$at->followers_count = $perfil['followers_count'];
-				$at->friends_count   = $perfil['friends_count'];
+				$profile->verified 				= ($verified==true)?1:0;
+				$profile->followers_count = $perfil['followers_count'];
+				$profile->friends_count   = $perfil['friends_count'];
+				$profile->engagement			= $engajamento;
 
-				$at->update();
+				$profile->update();
 			}
 
 			foreach($timeline as $key => $value){
 
-				$t =	Tweet::where('id_str','=',$value['id_str'])->get();
+				$t =	Tweet::where('id_str','=',$value['id_str'])->first();
 
 				if(!isset($t['id_str'])){
 
-					$url = $value['entities']['urls'][0]['url'];
-
 	      	$tweet = new Tweet($value);
 
-					$tweet->text 						= $value['text'];
+					$tweet->text 						= $value['full_text'];
 					$tweet->followers_count = $value['user']['followers_count'];
 					$tweet->friends_count 	= $value['user']['friends_count'];
 					$tweet->favorite_count  = $value['favorite_count'];
 					$tweet->retweet_count 	= $value['retweet_count'];
+					$tweet->reply					  = $value['in_reply_to_user_id_str'];
 					$tweet->posted_at				= $value['created_at'];
 					$tweet->retweet_status  = isset($value['retweeted_status'])?1:0;
 					$tweet->id_str					= $value['id_str'];
-					foreach($value['entities']['urls'] as $keyurl => $valueurl){
-						$tweet->url 					= $url;
-					}
+					$tweet->url 						= "https://twitter.com/".$username."/status"."/".$value['id_str'];
 
 					if($value['id_str'] == $v0){
 						$tweet->badalado = 1;
@@ -97,6 +96,15 @@ class TwitterService extends BaseService {
 						}
 
 					}
+
+				}else{
+
+					$t->followers_count = $value['user']['followers_count'];
+					$t->friends_count 	= $value['user']['friends_count'];
+					$t->favorite_count  = $value['favorite_count'];
+					$t->retweet_count 	= $value['retweet_count'];
+
+					$t->update();
 
 				} // .if isset
 

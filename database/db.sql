@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `influencemeter_db`.`profiles` (
   `friends_count` INT unsigned,
   `verified` TINYINT(2) NOT NULL,
   `user_id` INT UNSIGNED NOT NULL,
+  `engagement` FLOAT(10),
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
@@ -142,12 +143,13 @@ CREATE TABLE IF NOT EXISTS `influencemeter_db`.`tweets` (
   `favorite_count` INT unsigned,
   `retweet_count` INT unsigned,
   `retweet_status` TINYINT(2) unsigned,
+  `reply` VARCHAR(30) NULL,
   `posted_at` VARCHAR(75) NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
   `badalado` INT(2),
-  `url` VARCHAR(50),
+  `url` VARCHAR(150),
   PRIMARY KEY (`id`),
   INDEX `fk_tweets_profiles1_idx` (`profile_id` ASC),
   CONSTRAINT `fk_tweets_profiles1`
@@ -196,7 +198,8 @@ CREATE TABLE IF NOT EXISTS `influencemeter_db`.`types_profile` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(220) NULL,
-  `recomendarion` VARCHAR (500) NULL,
+  `recomendation` VARCHAR (500) NULL,
+  `requisites` VARCHAR(500) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -247,6 +250,20 @@ CREATE TABLE IF NOT EXISTS `influencemeter_db`.`loggers` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `influencemeter_db`.`types_engagement`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `influencemeter_db`.`types_engagement` ;
+
+CREATE TABLE IF NOT EXISTS `influencemeter_db`.`types_engagement` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(75) NULL,
+  `start_value` INT (255) unsigned NULL,
+  `end_value` INT (255) unsigned NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -270,6 +287,76 @@ INSERT INTO `users_roles` (`id`, `user_id`, `role_id`) VALUES
 (1,1,1),(2,1,2),(3,1,3);
 
 INSERT INTO `types_profile` VALUES
-(1, 'INFLUENCIADOR', 'Este perfil é comunicador e tem a capacidade de influenciar muitos outros usuários.', null),
-(2, 'FUTRIQUEIRO', 'Este perfil prefere responder e retweetar do que postar conteúdo próprio.', null),
-(3, 'CASUAL', 'Este perfil posta casualmente para uma audiência moderada ou pequena.', null);
+(
+  1, 'INFLUENCIADOR',
+  'Este perfil é comunicador e tem a capacidade de influenciar muitos outros usuários.',
+  null,
+  'Postagens próprias — não retweets nem respostas — com muito engajamento.'
+),
+(
+  2, 'CAUSADOR',
+  'Este perfil costuma responder e retweetar mais do que postar conteúdo próprio.',
+  null,
+  'Maiores taxas de engajamento estão em respostas e retweets.'
+),
+(
+  3, 'ANIMAL POLÍTICO',
+  'Este perfil usa a plataforma para dialogar com outros usuários.',
+  null,
+  'Cerca de 30% são respostas.'
+),
+(
+  4, 'CASUAL',
+  'Este perfil posta casualmente para uma audiência moderada ou pequena.',
+  null,
+  'Frequência baixa de postagens — menos de quatro vezes por semana — com engajamento moderado ou menor.'
+),
+(
+  5, 'BISCOITEIRO',
+  'Este perfil gosta de chamar a atenção com mídia (fotos e vídeos).',
+  null,
+  'Cerca de 40% das postagens contém fotos ou vídeos e/ou hashtags.'
+),
+(
+  6, 'FEIRANTE',
+  'Este perfil está tentando te vender alguma coisa.',
+  null,
+  'Muitos seguidores, mas engajamento moderado ou baixo, links em 25% das postagens.'
+),
+(
+  7, 'ADMIRÁVEL CHIP NOVO',
+  '01000010 01101111 01110100 robô criado com propósitos provavelmente maliciosos.',
+  null,
+  'Não verificado, engajamento baixo, posta em intervalos regulares.'
+),
+(
+  8, 'LAVOISIER',
+  'Na natureza nada se cria... Este perfil usa muitos retweets.',
+  null,
+  'Mais de 30% de retweeted.'
+);
+
+INSERT INTO `types_engagement` (`id`, `description`, `start_value`, `end_value`) VALUES (
+  1, 'Ínfimo', 49, 0
+),
+(
+  2, 'Baixíssimo', 99, 50
+),
+(
+  3, 'Baixo', 999, 100
+),
+(
+  4, 'Moderado', 4999, 1000
+),
+(
+  5, 'Alto', 9999, 5000
+),
+(
+  6, 'Muito alto', 99999, 10000
+),
+(
+  7, 'Altíssimo', 999999, 100000
+),
+(
+  8, 'Estratosférico', 9999999, 1000000
+);

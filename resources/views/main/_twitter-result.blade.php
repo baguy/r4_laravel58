@@ -42,7 +42,7 @@
 
 	<center>
 		<p>
-			{{ trans('main.info.latest') }}
+			10 {{ trans('main.info.latest') }}
 		</p>
 	</center>
 

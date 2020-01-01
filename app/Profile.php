@@ -15,7 +15,7 @@ class Profile extends Model {
   	protected $table    = 'profiles';
     protected $fillable = [
       'screen_name', 'user_id', 'name', 'friends_count',
-      'verified', 'twitter_id', 'followers_count'
+      'verified', 'twitter_id', 'followers_count', 'engagement'
     ];
 
     public function user(){

@@ -15,7 +15,7 @@ class Tweet extends Model {
     protected $fillable = [
       'profile_id','text','followers_count','url',
       'friends_count','favourites_count','id_str',
-      'retweet_count','retweet_status','posted_at'
+      'retweet_count','retweet_status','posted_at','reply'
     ];
 
     public function profile(){

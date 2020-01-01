@@ -121,6 +121,7 @@ return [
   'msg.error.datatable'                       => 'Desculpe-nos, ocorreu um erro. Recarregue a página e tente novamente!',
   'msg.error.resource-not-exists'             => 'Desculpe-nos, recurso: :resource inexistente!',
   'msg.error.something-went-wrong'            => 'Certifique-se de ter preenchido todos os campos obrigatórios.',
+  'msg.error.at'                              => 'Favor, retirar o @ do nome de usuário.',
   'msg.error.validation-errors'               => 'Existe(m) erro(s) na validação!',
   'msg.error.validation-token-expired'        => 'Token de validação expirado. Por favor tente novamente!',
   'msg.error.upload'                          => 'Erro no upload do arquivo!',
