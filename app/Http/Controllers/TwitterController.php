@@ -148,6 +148,14 @@ class TwitterController extends Controller
         $v0 = $v[0]; $v1 = $v[1]; $v2 = $v[2];
         $v3 = $v[3]; $v4 = $v[4];
 
+        // ENGAJAMENTO
+        $types_engagement = TypeEngagement::all(); $nivel_engajamento = TypeEngagement::find(1);
+        foreach($types_engagement as $key => $value){
+          if(($engagement >= $value['end_value']) && ($engagement <= $value['start_value'])){
+            $nivel_engajamento = TypeEngagement::find($value['id']);
+          }
+        }
+
         // TIPOS DE PERFIL
         // ~~ Animal político ~~
         $animal_politico = 0;
@@ -170,19 +178,34 @@ class TwitterController extends Controller
           $feirante = TypeProfile::find(6);
           $caracteristicas[2] = $feirante;
         }
-        // Lavoisier
+        // ~~ Lavoisier ~~
         $lavoisier = 0;
         $p_retweet = ($retweeted / $quantidade) * 100;
         if( $p_retweet >= 25 ){
           $lavoisier = TypeProfile::find(8);
           $caracteristicas[3] = $lavoisier;
         }
-
-        // ENGAJAMENTO
-        $types_engagement = TypeEngagement::all(); $nivel_engajamento = TypeEngagement::find(1);
-        foreach($types_engagement as $key => $value){
-          if(($engagement >= $value['end_value']) && ($engagement <= $value['start_value'])){
-            $nivel_engajamento = TypeEngagement::find($value['id']);
+        // ~~ Causador ~~
+        $causador = 0;
+        foreach($timeline as $key => $value){
+          if($value['id_str'] == $v0 or
+             $value['id_str'] == $v1 or $value['id_str'] == $v2 or
+             $value['id_str'] == $v3 or $value['id_str'] == $v4){
+            if( (isset($value['retweeted_status']) && $value['retweeted_status'] != "") or
+                ($value['in_reply_to_user_id'] != "" && $value['in_reply_to_user_id'] != null) ){
+              $causador += 1;
+            }
+          }
+        }
+        if($causador >= 3){
+          $causador = TypeProfile::find(2);
+          $caracteristicas[4] = $causador;
+        }else{
+          // ~~ Influenciador ~~
+          $influenciador = 0;
+          if( ($nivel_engajamento['id'] >= 5) or ($nivel_engajamento['id'] >= 4 && $verified == true) ){
+            $influenciador = TypeProfile::find(1);
+            $caracteristicas[5] = $influenciador;
           }
         }
 

@@ -92,7 +92,7 @@
 
 		<div class='col-3'>
 
-			<label class="mr-2">{{trans('main.lbl.fol-comparison') }}</label>
+			{{-- <label class="mr-2">{{trans('main.lbl.fol-comparison') }}</label> --}} <i class="fas fa-user-plus mr-2"></i>
 			<span class="badge {{$followers_pill_color}} badge-pill">
 				@if($followers_pill_color == 'badge-danger')
 					<i class='fas fa-minus'></i>
@@ -106,7 +106,7 @@
 
 		<div class='col-3'>
 
-			<label class="mr-2">{{trans('main.lbl.engagement') }}</label>
+			<label class="mr-2">{{trans('main.lbl.engagement') }}</label> <i class="fas fa-comments"></i>
 			<span class="badge badge-primary badge-pill">
 				{{ $engagement }}
 			</span>
@@ -115,7 +115,7 @@
 
 		<div class='col-3'>
 
-			<label class="mr-2">{{trans('main.lbl.eng-comparison') }}</label>
+			{{-- <label class="mr-2">{{trans('main.lbl.eng-comparison') }}</label> --}} <i class="fas fa-comments"></i>
 			<span class="badge {{$engagement_pill_color}} badge-pill">
 				@if($engagement_pill_color == 'badge-danger')
 					<i class='fas fa-minus'></i>
@@ -255,12 +255,6 @@
 													@endif
 
 											  </td>
-
-												<td>
-
-													{{$value['created_at']}}
-
-												</td>
 
                         <td>{{ $value['full_text'] }}</td>
 
